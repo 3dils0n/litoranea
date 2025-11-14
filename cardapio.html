@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cardápio completo de sorvetes artesanais - Picolés, açaí, sorbets e muito mais. Sorvetes Litorâneo.">
+    <meta name="keywords" content="cardápio sorvetes, picolés, açaí, sorbets, sorvete artesanal">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Cardápio - Sorvetes Litorâneo">
+    <meta property="og:description" content="Cardápio completo de sorvetes artesanais com receitas inspiradas no litoral.">
+    <meta property="og:image" content="assets/hero-1.jpg">
+    
+    <title>Cardápio - Sorvetes Litorâneo</title>
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Menu",
+      "name": "Cardápio Sorvetes Litorâneo",
+      "hasMenuSection": [
+        {
+          "@type": "MenuSection",
+          "name": "Picolés de Fruta",
+          "hasMenuItem": {
+            "@type": "MenuItem",
+            "name": "Picolés de Fruta",
+            "description": "Sabores naturais e refrescantes feitos com frutas frescas"
+          }
+        },
+        {
+          "@type": "MenuSection",
+          "name": "Picolés ao Leite",
+          "hasMenuItem": {
+            "@type": "MenuItem",
+            "name": "Picolés ao Leite",
+            "description": "Cremosos e deliciosos, feitos com leite fresco"
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- Header Fixo -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Sorvetes Litorâneo - Página inicial">
+                    <img src="assets/logo.png" alt="Logo Sorvetes Litorâneo" class="logo-img">
+                </a>
+                <nav class="nav" id="nav" aria-label="Navegação principal">
+                    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="cardapio.html" class="nav-link active">Cardápio</a></li>
+                        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+                        <li><a href="contato.html" class="nav-link">Contato</a></li>
+                    </ul>
+                </nav>
+                <button class="btn-cta-header" id="btnPedirAgora" aria-label="Fazer pedido">
+                    Peça Agora
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Cardápio -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Cardápio</h1>
+            <p class="page-subtitle">Nossos sabores artesanais inspirados no litoral</p>
+        </div>
+    </section>
+
+    <!-- Filtros e Busca -->
+    <section class="filtros-section">
+        <div class="container">
+            <div class="filtros-wrapper">
+                <div class="busca-wrapper">
+                    <label for="busca" class="sr-only">Buscar sabores</label>
+                    <input type="text" id="busca" class="input-busca" placeholder="Buscar sabores..." aria-label="Buscar sabores">
+                </div>
+                <div class="filtros-categoria">
+                    <button class="filtro-btn active" data-categoria="todos" aria-label="Mostrar todos os sabores">Todos</button>
+                    <button class="filtro-btn" data-categoria="creme" aria-label="Filtrar por cremes">Cremes</button>
+                    <button class="filtro-btn" data-categoria="fruta" aria-label="Filtrar por frutas">Frutas</button>
+                    <button class="filtro-btn" data-categoria="vegano" aria-label="Filtrar por veganos">Veganos</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid de Sabores -->
+    <section class="cardapio-section">
+        <div class="container">
+            <div class="cards-grid" id="cardsGrid">
+                <!-- Picolés de Fruta -->
+                <article class="card-sabor" data-categoria="fruta vegano">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/picolés de fruta.jpg" type="image/jpeg">
+                        <img src="assets/sabores/picolés de fruta.jpg" alt="Picolés de fruta frescos" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Picolés de Fruta</h3>
+                        <p class="card-description">Sabores naturais e refrescantes feitos com frutas frescas do litoral</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Picolés de Fruta" data-preco="2,50">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Picolés ao Leite -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/picolés ao leite.jpg" type="image/jpeg">
+                        <img src="assets/sabores/picolés ao leite.jpg" alt="Picolés ao leite cremosos" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Picolés ao Leite</h3>
+                        <p class="card-description">Cremosos e deliciosos, feitos com leite fresco e ingredientes selecionados</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Picolés ao Leite" data-preco="4,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Picolés Especiais -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/picolés especiais.jpg" type="image/jpeg">
+                        <img src="assets/sabores/picolés especiais.jpg" alt="Picolés especiais gourmet" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Picolés Especiais</h3>
+                        <p class="card-description">Sabores únicos e especiais para momentos especiais</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Picolés Especiais" data-preco="8,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Açaí e Sorbets -->
+                <article class="card-sabor" data-categoria="fruta vegano">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/açaí e sorbets.jpg" type="image/jpeg">
+                        <img src="assets/sabores/açaí e sorbets.jpg" alt="Açaí e sorbets refrescantes" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Açaí e Sorbets</h3>
+                        <p class="card-description">Opções veganas e refrescantes para todos os gostos</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Açaí e Sorbets" data-preco="8,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sorvete Diet -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/sorvete diet.jpg" type="image/jpeg">
+                        <img src="assets/sabores/sorvete diet.jpg" alt="Sorvete diet sem açúcar" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Sorvete Diet</h3>
+                        <p class="card-description">Delicioso e sem açúcar, para quem busca uma opção mais leve</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Sorvete Diet" data-preco="[INSERIR]">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sundae -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
+                        <img src="assets/sabores/sundae.jpg" alt="Sundae com coberturas" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Sundae</h3>
+                        <p class="card-description">Sorvete cremoso com coberturas deliciosas e toppings especiais</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Sundae" data-preco="8,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Copinho -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
+                        <img src="assets/sabores/copinho.jpg" alt="Sorvete em copinho" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Copinho</h3>
+                        <p class="card-description">Sorvete artesanal servido em copinho, perfeito para qualquer momento</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Copinho" data-preco="8,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Potes 1,5L -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/potes-1-5L.jpg" type="image/jpeg">
+                        <img src="assets/sabores/potes-1-5L.jpg" alt="Potes de sorvete 1,5 litros" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Potes 1,5L</h3>
+                        <p class="card-description">Potes familiares com 1,5 litros de sorvete artesanal</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Potes 1,5L" data-preco="29,50">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Caixa 10L -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/caixa 10L.jpg" type="image/jpeg">
+                        <img src="assets/sabores/caixa 10L.jpg" alt="Caixa de sorvete 10 litros" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Caixa 10L</h3>
+                        <p class="card-description">Caixa grande com 10 litros, ideal para eventos e festas</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Caixa 10L" data-preco="[INSERIR]">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Bolinhos -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/bolinhos.jpg" type="image/jpeg">
+                        <img src="assets/sabores/bolinhos.jpg" alt="Bolinhos de sorvete" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Bolinhos</h3>
+                        <p class="card-description">Deliciosos bolinhos de sorvete, perfeitos para o lanche</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Bolinhos" data-preco="[INSERIR]">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Esfirras -->
+                <article class="card-sabor" data-categoria="creme">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/esfirras.jpg" type="image/jpeg">
+                        <img src="assets/sabores/esfirras.jpg" alt="Esfirras de sorvete" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Esfirras</h3>
+                        <p class="card-description">Esfirras recheadas com sorvete artesanal</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Esfirras" data-preco="[INSERIR]">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div id="semResultados" class="sem-resultados" style="display: none;">
+                <p>Nenhum sabor encontrado. Tente outra busca ou filtro.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <img src="assets/logo.png" alt="Logo Sorvetes Litorâneo" class="footer-logo">
+                    <p>Receitas artesanais, ingredientes frescos e o clima da praia em cada bola.</p>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cardapio.html">Cardápio</a></li>
+                        <li><a href="sobre.html">Sobre</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Contato</h3>
+                    <ul class="footer-contact">
+                        <li>Telefone: (13) 3426-1517</li>
+                        <li>Endereço: R. Maria Píres, 174 - Savoy, Itanhaém - SP</li>
+                        <li><a href="https://www.instagram.com/sorveteslitoraneo/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="contato.html">Ver no mapa</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sorvetes Litorâneo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Pedidos -->
+    <div class="modal" id="modalPedido" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Fechar modal">&times;</button>
+            <h2 id="modalTitle" class="modal-title">Fazer Pedido</h2>
+            <form id="formPedido" class="form-pedido" novalidate>
+                <div class="form-group">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone *</label>
+                    <input type="tel" id="telefone" name="telefone" required aria-required="true" placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço Completo *</label>
+                    <textarea id="endereco" name="endereco" rows="3" required aria-required="true"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Itens do Pedido</label>
+                    <div id="itensPedido" class="itens-lista"></div>
+                    <button type="button" class="btn btn-small" id="btnAdicionarItem">+ Adicionar Item</button>
+                </div>
+                <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btnEnviarWhatsApp">Enviar via WhatsApp</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+

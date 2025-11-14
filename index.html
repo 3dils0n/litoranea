@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sorvetes Litorâneo - Sabor do litoral na sua colher. Receitas artesanais, ingredientes frescos e o clima da praia em cada bola.">
+    <meta name="keywords" content="sorvetes, sorvete artesanal, litoral, praia, picolés, açaí">
+    <meta name="author" content="Sorvetes Litorâneo">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sorvetes Litorâneo - Sabor do litoral na sua colher">
+    <meta property="og:description" content="Receitas artesanais, ingredientes frescos e o clima da praia em cada bola.">
+    <meta property="og:image" content="assets/hero-1.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sorvetes Litorâneo - Sabor do litoral na sua colher">
+    <meta name="twitter:description" content="Receitas artesanais, ingredientes frescos e o clima da praia em cada bola.">
+    <meta name="twitter:image" content="assets/hero-1.jpg">
+    
+    <title>Sorvetes Litorâneo - Sabor do litoral na sua colher</title>
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Sorvetes Litorâneo",
+      "image": "assets/logo.png",
+      "description": "Sorvetes artesanais com receitas inspiradas no litoral",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Itanhaém",
+        "streetAddress": "R. Maria Píres, 174 - Savoy",
+        "postalCode": "11740-000",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "telephone": "(13) 3426-1517",
+      "url": "https://www.instagram.com/sorveteslitoraneo/"
+    }
+    </script>
+</head>
+<body>
+    <!-- Header Fixo -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" aria-label="Sorvetes Litorâneo - Página inicial">
+                    <img src="assets/logo.png" alt="Logo Sorvetes Litorâneo" class="logo-img">
+                </a>
+                <nav class="nav" id="nav" aria-label="Navegação principal">
+                    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html" class="nav-link active">Home</a></li>
+                        <li><a href="cardapio.html" class="nav-link">Cardápio</a></li>
+                        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+                        <li><a href="contato.html" class="nav-link">Contato</a></li>
+                    </ul>
+                </nav>
+                <button class="btn-cta-header" id="btnPedirAgora" aria-label="Fazer pedido">
+                    Peça Agora
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <picture class="hero-image">
+            <source srcset="assets/hero-1.jpg" type="image/jpeg">
+            <img src="assets/hero-1.jpg" alt="Sorvetes artesanais do litoral" loading="eager">
+        </picture>
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-title">Sorvetes Litorâneo — Sabor do litoral na sua colher</h1>
+                <p class="hero-subtitle">Receitas artesanais, ingredientes frescos e o clima da praia em cada bola.</p>
+                <div class="hero-cta">
+                    <a href="cardapio.html" class="btn btn-primary">Ver Cardápio</a>
+                    <button class="btn btn-secondary" id="btnHeroPedir">Peça Agora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Destaques -->
+    <section class="destaques" id="destaques">
+        <div class="container">
+            <h2 class="section-title">Nossos Destaques</h2>
+            <div class="cards-grid">
+                <article class="card-sabor">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/picolés de fruta.jpg" type="image/jpeg">
+                        <img src="assets/sabores/picolés de fruta.jpg" alt="Picolés de fruta frescos" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Picolés de Fruta</h3>
+                        <p class="card-description">Sabores naturais e refrescantes feitos com frutas frescas</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Picolés de Fruta" data-preco="2,50">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="card-sabor">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/picolés ao leite.jpg" type="image/jpeg">
+                        <img src="assets/sabores/picolés ao leite.jpg" alt="Picolés ao leite cremosos" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Picolés ao Leite</h3>
+                        <p class="card-description">Cremosos e deliciosos, feitos com leite fresco</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Picolés ao Leite" data-preco="4,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="card-sabor">
+                    <picture class="card-image">
+                        <source srcset="assets/sabores/açaí e sorbets.jpg" type="image/jpeg">
+                        <img src="assets/sabores/açaí e sorbets.jpg" alt="Açaí e sorbets refrescantes" loading="lazy">
+                    </picture>
+                    <div class="card-content">
+                        <h3 class="card-title">Açaí e Sorbets</h3>
+                        <p class="card-description">Opções veganas e refrescantes para todos os gostos</p>
+                        <div class="card-footer">
+                            <button class="btn btn-small" data-sabor="Açaí e Sorbets" data-preco="8,00">Adicionar</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="section-cta">
+                <a href="cardapio.html" class="btn btn-primary">Ver Cardápio Completo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre (Preview) -->
+    <section class="sobre-preview" id="sobre-preview">
+        <div class="container">
+            <div class="sobre-content">
+                <div class="sobre-text">
+                    <h2 class="section-title">Sobre Nós</h2>
+                    <p>Desde 2010 produzindo sorvetes artesanais com receitas inspiradas no litoral. Qualidade e carinho em cada porção.</p>
+                    <a href="sobre.html" class="btn btn-secondary">Saiba Mais</a>
+                </div>
+                <picture class="sobre-image">
+                    <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
+                    <img src="assets/sabores/copinho.jpg" alt="Sorvete em copinho artesanal" loading="lazy">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <img src="assets/logo.png" alt="Logo Sorvetes Litorâneo" class="footer-logo">
+                    <p>Receitas artesanais, ingredientes frescos e o clima da praia em cada bola.</p>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="cardapio.html">Cardápio</a></li>
+                        <li><a href="sobre.html">Sobre</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 class="footer-title">Contato</h3>
+                    <ul class="footer-contact">
+                        <li>Telefone: (13) 3426-1517</li>
+                        <li>Endereço: R. Maria Píres, 174 - Savoy, Itanhaém - SP</li>
+                        <li><a href="https://www.instagram.com/sorveteslitoraneo/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="contato.html">Ver no mapa</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sorvetes Litorâneo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Pedidos -->
+    <div class="modal" id="modalPedido" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Fechar modal">&times;</button>
+            <h2 id="modalTitle" class="modal-title">Fazer Pedido</h2>
+            <form id="formPedido" class="form-pedido" novalidate>
+                <div class="form-group">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone *</label>
+                    <input type="tel" id="telefone" name="telefone" required aria-required="true" placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="endereco">Endereço Completo *</label>
+                    <textarea id="endereco" name="endereco" rows="3" required aria-required="true"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Itens do Pedido</label>
+                    <div id="itensPedido" class="itens-lista"></div>
+                    <button type="button" class="btn btn-small" id="btnAdicionarItem">+ Adicionar Item</button>
+                </div>
+                <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btnEnviarWhatsApp">Enviar via WhatsApp</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
