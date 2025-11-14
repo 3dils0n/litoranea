@@ -980,14 +980,22 @@ section {
     .form-actions {
         flex-direction: column;
         gap: 0.5rem;
-        width: 100%;
-        box-sizing: border-box;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     
     .form-actions .btn,
     .form-actions a.btn {
-        width: 100%;
-        flex: none;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important;
         padding: 12px 4px !important;
         font-size: 0.68rem !important;
         font-weight: 400 !important;
@@ -1003,6 +1011,8 @@ section {
         justify-content: center !important;
         border: 2px solid var(--cor-marrom) !important;
         margin: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         vertical-align: top !important;
         line-height: 1.2 !important;
         text-align: center !important;
