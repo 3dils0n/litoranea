@@ -196,7 +196,15 @@
                 <div class="form-group">
                     <label>Itens do Pedido</label>
                     <div id="itensPedido" class="itens-lista"></div>
-                    <button type="button" class="btn btn-small" id="btnAdicionarItem">+ Adicionar Item</button>
+                    <div class="adicionar-item-wrapper">
+                        <select id="selectSaborAdicionar" class="select-sabor-adicionar">
+                            <option value="">Selecione um item</option>
+                        </select>
+                        <select id="selectSaborEspecifico" class="select-sabor-especifico" style="display: none;">
+                            <option value="">Selecione o sabor</option>
+                        </select>
+                        <button type="button" class="btn btn-small" id="btnAdicionarItem">+ Adicionar Item</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="observacoes">Observações</label>

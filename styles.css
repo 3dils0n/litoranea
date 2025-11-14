@@ -984,6 +984,23 @@ section {
         box-sizing: border-box;
     }
     
+    .item-produto-sabor {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .item-produto {
+        font-size: 0.85rem;
+    }
+    
+    .item-sabor-texto {
+        font-size: 0.8rem;
+    }
+    
+    .item-preco {
+        font-size: 0.85rem;
+    }
+    
     .item-pedido select {
         flex: 1 1 100%;
         min-width: 0;
@@ -998,6 +1015,12 @@ section {
         box-sizing: border-box;
     }
     
+    .item-quantidade {
+        width: 50px;
+        min-width: 50px;
+        max-width: 50px;
+    }
+    
     .btn-remover-item {
         flex: 0 0 32px;
         flex-shrink: 0;
@@ -1006,6 +1029,24 @@ section {
     .btn-small {
         width: 100%;
         box-sizing: border-box;
+    }
+    
+    .adicionar-item-wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .adicionar-item-wrapper .btn-small {
+        width: 100%;
+    }
+    
+    .select-sabor-adicionar,
+    .select-sabor-especifico {
+        width: 100%;
+    }
+    
+    .select-sabor-especifico[style*="display: block"] {
+        display: block !important;
     }
 }
 
@@ -1170,6 +1211,51 @@ section {
     margin: 0;
 }
 
+.adicionar-item-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.select-sabor-adicionar,
+.select-sabor-especifico {
+    flex: 1;
+    padding: 0.7rem;
+    border: 2px solid var(--cor-bege-escuro);
+    border-radius: 8px;
+    font-family: var(--fonte-texto);
+    font-size: 0.9rem;
+    transition: var(--transicao);
+    background-color: var(--cor-branco);
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.select-sabor-especifico {
+    display: none;
+    flex: 1;
+}
+
+.select-sabor-especifico[style*="display: flex"],
+.select-sabor-especifico.visible {
+    display: block !important;
+    flex: 1;
+}
+
+.select-sabor-adicionar:focus,
+.select-sabor-especifico:focus {
+    outline: none;
+    border-color: var(--cor-marrom);
+    box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.15);
+}
+
+.adicionar-item-wrapper .btn-small {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
 .item-pedido {
     display: flex;
     align-items: center;
@@ -1182,6 +1268,39 @@ section {
     flex-shrink: 0;
 }
 
+.item-produto-sabor {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.item-produto {
+    font-weight: 600;
+    color: var(--cor-marrom);
+    font-size: 0.9rem;
+}
+
+.item-sabor-texto {
+    color: var(--cor-texto);
+    font-size: 0.85rem;
+}
+
+.item-sabor-texto::before {
+    content: '-';
+    margin-right: 0.3rem;
+    color: var(--cor-bege-escuro);
+}
+
+.item-preco {
+    font-weight: 600;
+    color: var(--cor-marrom);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
 .item-pedido select,
 .item-pedido input {
     flex: 1;
@@ -1191,6 +1310,14 @@ section {
     border-radius: 5px;
     font-size: 0.85rem;
     box-sizing: border-box;
+}
+
+.item-quantidade {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    text-align: center;
+    flex: none;
 }
 
 .btn-remover-item {

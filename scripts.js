@@ -134,24 +134,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     botoesAdicionar.forEach(botao => {
         botao.addEventListener('click', function() {
-            const sabor = this.getAttribute('data-sabor');
+            const itemNome = this.getAttribute('data-sabor');
             const preco = this.getAttribute('data-preco');
             
-            // Verificar se já existe no pedido
-            const itemExistente = itensPedido.find(item => item.sabor === sabor);
-            
-            if (itemExistente) {
-                itemExistente.quantidade += 1;
-            } else {
-                itensPedido.push({
-                    sabor: sabor,
-                    preco: preco,
-                    quantidade: 1
-                });
-            }
-            
-            atualizarListaItens();
+            // Abrir modal primeiro
             abrirModal();
+            
+            // Aguardar um pouco para o modal abrir e os elementos estarem disponíveis
+            setTimeout(() => {
+                const selectSaborAdicionar = document.getElementById('selectSaborAdicionar');
+                const selectSaborEspecifico = document.getElementById('selectSaborEspecifico');
+                
+                if (selectSaborAdicionar) {
+                    // Verificar se o select já foi populado
+                    if (selectSaborAdicionar.options.length <= 1) {
+                        // Se não foi populado, aguardar mais um pouco
+                        setTimeout(() => {
+                            selectSaborAdicionar.value = itemNome;
+                            const event = new Event('change', { bubbles: true });
+                            selectSaborAdicionar.dispatchEvent(event);
+                        }, 200);
+                    } else {
+                        // Selecionar o item no select
+                        selectSaborAdicionar.value = itemNome;
+                        
+                        // Disparar o evento change para carregar os sabores específicos
+                        const event = new Event('change', { bubbles: true });
+                        selectSaborAdicionar.dispatchEvent(event);
+                    }
+                }
+            }, 100);
             
             // Feedback visual
             this.style.transform = 'scale(0.95)';
@@ -180,12 +192,19 @@ function atualizarListaItens() {
     itensPedido.forEach((item, index) => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item-pedido';
+        
+        // Separar produto e sabor para exibição
+        const produto = item.produto || (item.saborCompleto ? item.saborCompleto.split(' - ')[0] : item.sabor);
+        const sabor = item.sabor || (item.saborCompleto && item.saborCompleto.includes(' - ') ? item.saborCompleto.split(' - ')[1] : '');
+        
         itemDiv.innerHTML = `
-            <select class="item-sabor" data-index="${index}">
-                ${gerarOpcoesSabores(item.sabor)}
-            </select>
+            <div class="item-produto-sabor">
+                <span class="item-produto">${produto}</span>
+                ${sabor ? `<span class="item-sabor-texto">${sabor}</span>` : ''}
+            </div>
             <input type="number" class="item-quantidade" data-index="${index}" 
                    value="${item.quantidade}" min="1" aria-label="Quantidade">
+            <span class="item-preco">R$ ${item.preco}</span>
             <button type="button" class="btn-remover-item" data-index="${index}" 
                     aria-label="Remover item"></button>
         `;
@@ -193,16 +212,8 @@ function atualizarListaItens() {
     });
     
     // Event listeners para edição
-    const selects = itensPedidoDiv.querySelectorAll('.item-sabor');
     const inputs = itensPedidoDiv.querySelectorAll('.item-quantidade');
     const botoesRemover = itensPedidoDiv.querySelectorAll('.btn-remover-item');
-    
-    selects.forEach(select => {
-        select.addEventListener('change', function() {
-            const index = parseInt(this.getAttribute('data-index'));
-            itensPedido[index].sabor = this.value;
-        });
-    });
     
     inputs.forEach(input => {
         input.addEventListener('change', function() {
@@ -229,16 +240,16 @@ function gerarOpcoesSabores(saborAtual) {
         'Picolés ao Leite',
         'Picolés Especiais',
         'Açaí 120 ml',
-        'Sorvete Diet',
         'Sundae Plus',
-        'Copão 430 ml',
         'Potes 1,5L (Recheados)',
-        'Caixa 10L',
-        'Bolinhos',
-        'Esfirras',
+        'Copão 430 ml',
         'Copo Mirim 200 ml (Recheado)',
         'Coberturas 1,3kg',
-        'Coberturas 250g'
+        'Coberturas 250g',
+        'Sorvete Diet',
+        'Caixa 10L',
+        'Bolinhos',
+        'Esfirras'
     ];
     
     return sabores.map(sabor => 
@@ -249,14 +260,188 @@ function gerarOpcoesSabores(saborAtual) {
 // Adicionar novo item manualmente
 document.addEventListener('DOMContentLoaded', function() {
     const btnAdicionarItem = document.getElementById('btnAdicionarItem');
+    const selectSaborAdicionar = document.getElementById('selectSaborAdicionar');
+    const selectSaborEspecifico = document.getElementById('selectSaborEspecifico');
+    
+    // Estrutura de dados com itens e seus sabores específicos
+    const itensComSabores = {
+        'Picolés de Fruta': {
+            preco: '2,50',
+            sabores: ['Açaí', 'Limão', 'Maracujá', 'Uva', 'Melancia', 'Groselha', 'Goiaba', 'Tangerina']
+        },
+        'Picolés ao Leite': {
+            preco: '4,00',
+            sabores: ['Abacaxi', 'Chocolate', 'Coco', 'Espanhola', 'Leite condensado', 'Limão suíço', 'Milho verde', 'Morango', 'Sensação']
+        },
+        'Picolés Especiais': {
+            preco: '8,00',
+            sabores: ['Brigadeiro', 'Crocante', 'Skimo', 'Tentação', 'Napolitano']
+        },
+        'Açaí 120 ml': {
+            preco: '8,00',
+            sabores: ['Açaí com trufa de leitinho', 'Açaí com trufa de avelã', 'Açaí puro']
+        },
+        'Sundae Plus': {
+            preco: '8,00',
+            sabores: ['Chocolate', 'Morango']
+        },
+        'Potes 1,5L (Recheados)': {
+            preco: '29,50',
+            sabores: ['Bombom de avelã', 'Brigadeiro', 'Chocolate', 'Crocante', 'Churros', 'Espanhola', 'Flocos', 'Morango', 'Morango trufado', 'Napolitano', 'Ninho trufado', 'Passas ao rum', 'Pistache', 'Prestígio', 'Torta de limão']
+        },
+        'Copão 430 ml': {
+            preco: '8,00',
+            sabores: ['Blue ice', 'Chocolate', 'Coco', 'Flocos', 'Milho verde', 'Morango', 'Napolitano', 'Passas ao rum']
+        },
+        'Copo Mirim 200 ml (Recheado)': {
+            preco: '4,50',
+            sabores: ['Brigadeiro', 'Morango', 'Prestígio', 'Romeu e Julieta']
+        },
+        'Coberturas 1,3kg': {
+            preco: '0,00',
+            sabores: ['Chocolate (R$ 16,00)', 'Morango (R$ 14,00)', 'Caramelo (R$ 14,00)']
+        },
+        'Coberturas 250g': {
+            preco: '0,00',
+            sabores: ['Chocolate (R$ 4,50)', 'Morango (R$ 4,20)', 'Caramelo (R$ 4,20)']
+        },
+        'Sorvete Diet': {
+            preco: '0,00',
+            sabores: ['Sem sabor específico']
+        },
+        'Caixa 10L': {
+            preco: '0,00',
+            sabores: ['Sem sabor específico']
+        },
+        'Bolinhos': {
+            preco: '0,00',
+            sabores: ['Sem sabor específico']
+        },
+        'Esfirras': {
+            preco: '0,00',
+            sabores: ['Sem sabor específico']
+        }
+    };
+    
+    // Preencher o select de itens
+    if (selectSaborAdicionar) {
+        Object.keys(itensComSabores).forEach(itemNome => {
+            const option = document.createElement('option');
+            option.value = itemNome;
+            option.textContent = itemNome;
+            option.dataset.preco = itensComSabores[itemNome].preco;
+            selectSaborAdicionar.appendChild(option);
+        });
+        
+        // Quando selecionar um item, mostrar os sabores específicos
+        selectSaborAdicionar.addEventListener('change', function() {
+            const itemSelecionado = this.value;
+            
+            // Limpar o select de sabores específicos
+            if (selectSaborEspecifico) {
+                selectSaborEspecifico.innerHTML = '<option value="">Selecione o sabor</option>';
+                selectSaborEspecifico.style.display = 'none';
+                selectSaborEspecifico.classList.remove('visible');
+                selectSaborEspecifico.value = '';
+            }
+            
+            if (itemSelecionado && itensComSabores[itemSelecionado]) {
+                const sabores = itensComSabores[itemSelecionado].sabores;
+                
+                if (selectSaborEspecifico && sabores.length > 0 && sabores[0] !== 'Sem sabor específico') {
+                    // Limpar opções anteriores
+                    selectSaborEspecifico.innerHTML = '<option value="">Selecione o sabor</option>';
+                    
+                    sabores.forEach(sabor => {
+                        const option = document.createElement('option');
+                        option.value = sabor;
+                        option.textContent = sabor;
+                        selectSaborEspecifico.appendChild(option);
+                    });
+                    
+                    selectSaborEspecifico.style.display = 'flex';
+                    selectSaborEspecifico.classList.add('visible');
+                } else if (selectSaborEspecifico) {
+                    // Se não tem sabores específicos, ocultar o select
+                    selectSaborEspecifico.innerHTML = '<option value="">Selecione o sabor</option>';
+                    selectSaborEspecifico.style.display = 'none';
+                    selectSaborEspecifico.classList.remove('visible');
+                }
+            }
+        });
+    }
+    
     if (btnAdicionarItem) {
         btnAdicionarItem.addEventListener('click', function() {
+            // Re-obter os elementos para garantir que estão atualizados
+            const selectSaborAdicionarAtual = document.getElementById('selectSaborAdicionar');
+            const selectSaborEspecificoAtual = document.getElementById('selectSaborEspecifico');
+            
+            if (!selectSaborAdicionarAtual || !selectSaborAdicionarAtual.value) {
+                alert('Por favor, selecione um item antes de adicionar.');
+                return;
+            }
+            
+            const itemSelecionado = selectSaborAdicionarAtual.value.trim();
+            
+            // Verificar se o item existe na estrutura de dados
+            if (!itensComSabores[itemSelecionado]) {
+                alert('Item não encontrado. Por favor, selecione um item válido.');
+                return;
+            }
+            
+            const selectedOption = selectSaborAdicionarAtual.options[selectSaborAdicionarAtual.selectedIndex];
+            const preco = selectedOption ? (selectedOption.dataset.preco || itensComSabores[itemSelecionado].preco) : itensComSabores[itemSelecionado].preco;
+            const sabores = itensComSabores[itemSelecionado].sabores;
+            
+            // Verificar se precisa escolher sabor específico
+            let saborCompleto = itemSelecionado;
+            let precoFinal = preco;
+            
+            if (sabores && sabores.length > 0 && sabores[0] !== 'Sem sabor específico') {
+                if (!selectSaborEspecificoAtual || !selectSaborEspecificoAtual.value || selectSaborEspecificoAtual.style.display === 'none' || selectSaborEspecificoAtual.style.display === '') {
+                    alert('Por favor, selecione o sabor específico antes de adicionar.');
+                    return;
+                }
+                
+                const saborEspecifico = selectSaborEspecificoAtual.value.trim();
+                saborCompleto = `${itemSelecionado} - ${saborEspecifico}`;
+                
+                // Extrair preço das coberturas se houver
+                if (itemSelecionado === 'Coberturas 1,3kg' || itemSelecionado === 'Coberturas 250g') {
+                    const matchPreco = saborEspecifico.match(/R\$ ([\d,]+)/);
+                    if (matchPreco) {
+                        precoFinal = matchPreco[1];
+                    }
+                }
+            }
+            
+            // Separar produto e sabor
+            let produto = itemSelecionado;
+            let saborEspecifico = '';
+            
+            if (sabores && sabores.length > 0 && sabores[0] !== 'Sem sabor específico') {
+                saborEspecifico = selectSaborEspecificoAtual.value.trim();
+            }
+            
             itensPedido.push({
-                sabor: 'Picolés de Fruta',
-                preco: '2,50',
+                produto: produto,
+                sabor: saborEspecifico,
+                saborCompleto: saborCompleto, // Mantido para compatibilidade
+                preco: precoFinal,
                 quantidade: 1
             });
+            
             atualizarListaItens();
+            
+            // Resetar os selects
+            selectSaborAdicionarAtual.value = '';
+            if (selectSaborEspecificoAtual) {
+                selectSaborEspecificoAtual.innerHTML = '<option value="">Selecione o sabor</option>';
+                selectSaborEspecificoAtual.style.display = 'none';
+                selectSaborEspecificoAtual.classList.remove('visible');
+                selectSaborEspecificoAtual.value = '';
+            }
         });
     }
 });
@@ -333,7 +518,15 @@ function gerarMensagemWhatsApp(nome, telefone, endereco, observacoes) {
     mensagem += `*Itens do Pedido:*\n`;
     
     itensPedido.forEach((item, index) => {
-        mensagem += `${index + 1}. ${item.sabor}\n`;
+        // Separar produto e sabor
+        const produto = item.produto || (item.saborCompleto ? item.saborCompleto.split(' - ')[0] : item.sabor);
+        const sabor = item.sabor || (item.saborCompleto && item.saborCompleto.includes(' - ') ? item.saborCompleto.split(' - ')[1] : '');
+        
+        if (sabor) {
+            mensagem += `${index + 1}. ${produto} - ${sabor}\n`;
+        } else {
+            mensagem += `${index + 1}. ${produto}\n`;
+        }
         mensagem += `   Qtd: ${item.quantidade} | Preço: R$ ${item.preco}\n\n`;
     });
     
