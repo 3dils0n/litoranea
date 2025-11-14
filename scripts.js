@@ -226,14 +226,17 @@ function gerarOpcoesSabores(saborAtual) {
         'Picolés de Fruta',
         'Picolés ao Leite',
         'Picolés Especiais',
-        'Açaí e Sorbets',
+        'Açaí 120 ml',
         'Sorvete Diet',
-        'Sundae',
-        'Copinho',
-        'Potes 1,5L',
+        'Sundae Plus',
+        'Copão 430 ml',
+        'Potes 1,5L (Recheados)',
         'Caixa 10L',
         'Bolinhos',
-        'Esfirras'
+        'Esfirras',
+        'Copo Mirim 200 ml (Recheado)',
+        'Coberturas 1,3kg',
+        'Coberturas 250g'
     ];
     
     return sabores.map(sabor => 
@@ -248,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btnAdicionarItem.addEventListener('click', function() {
             itensPedido.push({
                 sabor: 'Picolés de Fruta',
-                preco: '[INSERIR]',
+                preco: '2,50',
                 quantidade: 1
             });
             atualizarListaItens();
