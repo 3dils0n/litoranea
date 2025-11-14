@@ -71,6 +71,11 @@ function abrirModal() {
         if (primeiroInput) {
             setTimeout(() => primeiroInput.focus(), 100);
         }
+        
+        // Atualizar o total quando o modal é aberto
+        setTimeout(() => {
+            atualizarTotal();
+        }, 150);
     }
 }
 
@@ -186,6 +191,7 @@ function atualizarListaItens() {
     
     if (itensPedido.length === 0) {
         itensPedidoDiv.innerHTML = '<p>Nenhum item adicionado ainda.</p>';
+        atualizarTotal();
         return;
     }
     
@@ -221,6 +227,7 @@ function atualizarListaItens() {
             const quantidade = parseInt(this.value);
             if (quantidade > 0) {
                 itensPedido[index].quantidade = quantidade;
+                atualizarTotal();
             }
         });
     });
@@ -232,6 +239,20 @@ function atualizarListaItens() {
             atualizarListaItens();
         });
     });
+    
+    atualizarTotal();
+}
+
+function atualizarTotal() {
+    const totalPedidoElement = document.getElementById('totalPedido');
+    if (!totalPedidoElement) return;
+    
+    const total = itensPedido.reduce((sum, item) => {
+        const preco = parseFloat(item.preco.replace(',', '.'));
+        return sum + (preco * item.quantidade);
+    }, 0);
+    
+    totalPedidoElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
 }
 
 function gerarOpcoesSabores(saborAtual) {

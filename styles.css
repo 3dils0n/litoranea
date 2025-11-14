@@ -965,9 +965,66 @@ section {
     .form-actions a.btn {
         width: 100%;
         flex: none;
-        padding: 12px;
-        font-size: 0.8rem;
-        box-sizing: border-box;
+        padding: 12px 4px !important;
+        font-size: 0.68rem !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+        border-radius: 2px !important;
+        box-sizing: border-box !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        max-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: 2px solid var(--cor-marrom) !important;
+        margin: 0 !important;
+        vertical-align: top !important;
+        line-height: 1.2 !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+    
+    .form-actions .btn-secondary {
+        background-color: var(--cor-marrom) !important;
+        color: var(--cor-branco) !important;
+        border: 2px solid var(--cor-marrom) !important;
+    }
+    
+    .form-actions .btn-secondary:hover {
+        background-color: var(--cor-marrom-escuro) !important;
+        border-color: var(--cor-marrom-escuro) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px var(--cor-sombra);
+    }
+    
+    .form-actions .btn-primary {
+        background-color: var(--cor-marrom) !important;
+        color: var(--cor-branco) !important;
+        border: 2px solid var(--cor-marrom) !important;
+    }
+    
+    .form-actions .btn-primary:hover {
+        background-color: var(--cor-marrom-escuro) !important;
+        border-color: var(--cor-marrom-escuro) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px var(--cor-sombra);
+    }
+    
+    .form-actions .btn-ifood {
+        background-color: var(--cor-marrom) !important;
+        color: var(--cor-branco) !important;
+        border: 2px solid var(--cor-marrom) !important;
+    }
+    
+    .form-actions .btn-ifood:hover {
+        background-color: var(--cor-marrom-escuro) !important;
+        border-color: var(--cor-marrom-escuro) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px var(--cor-sombra);
     }
     
     .itens-lista {
@@ -1024,6 +1081,22 @@ section {
     .btn-remover-item {
         flex: 0 0 32px;
         flex-shrink: 0;
+    }
+    
+    .total-pedido {
+        padding: 0.75rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .total-label {
+        font-size: 0.9rem;
+    }
+    
+    .total-valor {
+        font-size: 1.1rem;
+        align-self: flex-end;
     }
     
     .btn-small {
@@ -1345,6 +1418,34 @@ section {
 .btn-remover-item:hover {
     background-color: #c0392b;
     transform: scale(1.1);
+}
+
+.total-pedido-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.total-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--cor-bege-claro);
+    border-radius: 8px;
+    border: 2px solid var(--cor-marrom);
+    margin-top: 0.5rem;
+}
+
+.total-label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--cor-marrom);
+}
+
+.total-valor {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--cor-marrom);
 }
 
 .form-actions {
