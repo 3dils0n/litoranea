@@ -131,6 +131,7 @@ ul {
 .logo-img {
     height: 120px;
     width: auto;
+    object-fit: contain;
 }
 
 /* Navegação */
@@ -1015,6 +1016,28 @@ section {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
+}
+
+/* ============================================
+   RESPONSIVIDADE - MOBILE
+   ============================================ */
+
+@media (max-width: 767px) {
+    .logo-img {
+        height: 60px;
+        max-width: 150px;
+        width: auto;
+    }
+    
+    .header-content {
+        padding: var(--espaco-xs) 0;
+        gap: var(--espaco-sm);
+    }
+    
+    .btn-cta-header {
+        padding: var(--espaco-xs) var(--espaco-sm);
+        font-size: 0.8rem;
+    }
 }
 
 /* ============================================
