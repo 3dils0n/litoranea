@@ -185,7 +185,7 @@ function atualizarListaItens() {
             <input type="number" class="item-quantidade" data-index="${index}" 
                    value="${item.quantidade}" min="1" aria-label="Quantidade">
             <button type="button" class="btn-remover-item" data-index="${index}" 
-                    aria-label="Remover item">Remover</button>
+                    aria-label="Remover item"></button>
         `;
         itensPedidoDiv.appendChild(itemDiv);
     });
