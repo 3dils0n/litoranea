@@ -331,11 +331,20 @@ function gerarMensagemWhatsApp(nome, telefone, endereco, observacoes) {
     mensagem += `*Itens do Pedido:*\n`;
     
     itensPedido.forEach((item, index) => {
-        mensagem += `${index + 1}. ${item.sabor} - Qtd: ${item.quantidade} - R$ ${item.preco}\n`;
+        mensagem += `${index + 1}. ${item.sabor}\n`;
+        mensagem += `   Qtd: ${item.quantidade} | Preço: R$ ${item.preco}\n\n`;
     });
     
+    // Calcular total
+    const total = itensPedido.reduce((sum, item) => {
+        const preco = parseFloat(item.preco.replace(',', '.'));
+        return sum + (preco * item.quantidade);
+    }, 0);
+    
+    mensagem += `*Total: R$ ${total.toFixed(2).replace('.', ',')}*\n`;
+    
     if (observacoes) {
-        mensagem += `\n*Observações:* ${observacoes}`;
+        mensagem += `\n*Observações:*\n${observacoes}`;
     }
     
     return mensagem;
