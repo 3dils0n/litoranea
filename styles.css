@@ -302,6 +302,27 @@ ul {
     box-shadow: 0 2px 6px var(--cor-sombra);
 }
 
+.btn-ifood {
+    padding: var(--espaco-xs) var(--espaco-md);
+    background-color: #ea1d2c;
+    color: var(--cor-branco);
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: var(--transicao);
+    margin-top: var(--espaco-xs);
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn-ifood:hover {
+    background-color: #d01a27;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px var(--cor-sombra);
+}
+
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -952,7 +973,8 @@ section {
     margin-top: var(--espaco-md);
 }
 
-.form-actions .btn {
+.form-actions .btn,
+.form-actions a.btn {
     flex: 1;
 }
 
