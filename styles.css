@@ -1398,6 +1398,14 @@ section {
         padding: var(--espaco-xs) var(--espaco-sm);
         font-size: 0.8rem;
     }
+    
+    .hero {
+        margin-top: 80px;
+    }
+    
+    .page-hero {
+        margin-top: 80px;
+    }
 }
 
 /* ============================================
