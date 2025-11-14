@@ -104,216 +104,252 @@
     <!-- Grid de Sabores -->
     <section class="cardapio-section">
         <div class="container">
-            <div class="cards-grid" id="cardsGrid">
-                <!-- Picolés de Fruta -->
-                <article class="card-sabor" data-categoria="fruta vegano">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/picoles-de-fruta.jpg" type="image/jpeg">
-                        <img src="assets/sabores/picoles-de-fruta.jpg" alt="Picolés de fruta frescos" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Picolés de Fruta</h3>
-                        <p class="card-description">Sabores naturais e refrescantes feitos com frutas frescas do litoral. Sabores: Açaí, Limão, Maracujá, Uva, Melancia, Groselha, Goiaba, Tangerina</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Picolés de Fruta" data-preco="2,50">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+            <div id="cardsGrid">
+                <!-- Setor: Picolés -->
+                <div class="setor-cardapio" data-setor="picolés">
+                    <h2 class="setor-titulo">Picolés</h2>
+                    <div class="cards-grid">
+                        <!-- Picolés de Fruta -->
+                        <article class="card-sabor" data-categoria="fruta vegano">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/picoles-de-fruta.jpg" type="image/jpeg">
+                                <img src="assets/sabores/picoles-de-fruta.jpg" alt="Picolés de fruta frescos" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Picolés de Fruta</h3>
+                                <p class="card-description">Sabores naturais e refrescantes feitos com frutas frescas do litoral. Sabores: Açaí, Limão, Maracujá, Uva, Melancia, Groselha, Goiaba, Tangerina</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Picolés de Fruta" data-preco="2,50">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Picolés ao Leite -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/picoles-ao-leite.jpg" type="image/jpeg">
-                        <img src="assets/sabores/picoles-ao-leite.jpg" alt="Picolés ao leite cremosos" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Picolés ao Leite</h3>
-                        <p class="card-description">Cremosos e deliciosos, feitos com leite fresco. Sabores: Abacaxi, Chocolate, Coco, Espanhola, Leite condensado, Limão suíço, Milho verde, Morango, Sensação</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Picolés ao Leite" data-preco="4,00">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                        <!-- Picolés ao Leite -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/picoles-ao-leite.jpg" type="image/jpeg">
+                                <img src="assets/sabores/picoles-ao-leite.jpg" alt="Picolés ao leite cremosos" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Picolés ao Leite</h3>
+                                <p class="card-description">Cremosos e deliciosos, feitos com leite fresco. Sabores: Abacaxi, Chocolate, Coco, Espanhola, Leite condensado, Limão suíço, Milho verde, Morango, Sensação</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Picolés ao Leite" data-preco="4,00">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Picolés Especiais -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/picoles-especiais.jpg" type="image/jpeg">
-                        <img src="assets/sabores/picoles-especiais.jpg" alt="Picolés especiais gourmet" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Picolés Especiais</h3>
-                        <p class="card-description">Picolés com cobertura especial. Sabores: Brigadeiro, Crocante, Skimo, Tentação, Napolitano</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Picolés Especiais" data-preco="8,00">Adicionar</button>
-                        </div>
+                        <!-- Picolés Especiais -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/picoles-especiais.jpg" type="image/jpeg">
+                                <img src="assets/sabores/picoles-especiais.jpg" alt="Picolés especiais gourmet" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Picolés Especiais</h3>
+                                <p class="card-description">Picolés com cobertura especial. Sabores: Brigadeiro, Crocante, Skimo, Tentação, Napolitano</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Picolés Especiais" data-preco="8,00">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                </div>
 
-                <!-- Açaí e Sorbets -->
-                <article class="card-sabor" data-categoria="fruta vegano">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/acai-e-sorbets.jpg" type="image/jpeg">
-                        <img src="assets/sabores/acai-e-sorbets.jpg" alt="Açaí e sorbets refrescantes" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Açaí 120 ml</h3>
-                        <p class="card-description">Açaí cremoso e refrescante. Sabores: Açaí com trufa de leitinho, Açaí com trufa de avelã, Açaí puro</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Açaí 120 ml" data-preco="8,00">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                <!-- Setor: Sorvetes -->
+                <div class="setor-cardapio" data-setor="sorvetes">
+                    <h2 class="setor-titulo">Sorvetes</h2>
+                    <div class="cards-grid">
+                        <!-- Copinho -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
+                                <img src="assets/sabores/copinho.jpg" alt="Sorvete em copinho" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Copão 430 ml</h3>
+                                <p class="card-description">Sorvete artesanal servido em copão de 430ml. Sabores: Blue ice, Chocolate, Coco, Flocos, Milho verde, Morango, Napolitano, Passas ao rum</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Copão 430 ml" data-preco="8,00">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Sorvete Diet -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/sorvete-diet.jpg" type="image/jpeg">
-                        <img src="assets/sabores/sorvete-diet.jpg" alt="Sorvete diet sem açúcar" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Sorvete Diet</h3>
-                        <p class="card-description">Delicioso e sem açúcar, para quem busca uma opção mais leve</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Sorvete Diet" data-preco="[INSERIR]">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                        <!-- Sundae -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
+                                <img src="assets/sabores/sundae.jpg" alt="Sundae com coberturas" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Sundae Plus</h3>
+                                <p class="card-description">Sorvete cremoso com coberturas deliciosas e toppings especiais. Sabores: Chocolate, Morango</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Sundae Plus" data-preco="8,00">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Sundae -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
-                        <img src="assets/sabores/sundae.jpg" alt="Sundae com coberturas" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Sundae Plus</h3>
-                        <p class="card-description">Sorvete cremoso com coberturas deliciosas e toppings especiais. Sabores: Chocolate, Morango</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Sundae Plus" data-preco="8,00">Adicionar</button>
-                        </div>
+                        <!-- Sorvete Diet -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/sorvete-diet.jpg" type="image/jpeg">
+                                <img src="assets/sabores/sorvete-diet.jpg" alt="Sorvete diet sem açúcar" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Sorvete Diet</h3>
+                                <p class="card-description">Delicioso e sem açúcar, para quem busca uma opção mais leve</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Sorvete Diet" data-preco="[INSERIR]">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                </div>
 
-                <!-- Copinho -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
-                        <img src="assets/sabores/copinho.jpg" alt="Sorvete em copinho" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Copão 430 ml</h3>
-                        <p class="card-description">Sorvete artesanal servido em copão de 430ml. Sabores: Blue ice, Chocolate, Coco, Flocos, Milho verde, Morango, Napolitano, Passas ao rum</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Copão 430 ml" data-preco="8,00">Adicionar</button>
-                        </div>
+                <!-- Setor: Açaí -->
+                <div class="setor-cardapio" data-setor="açaí">
+                    <h2 class="setor-titulo">Açaí</h2>
+                    <div class="cards-grid">
+                        <!-- Açaí e Sorbets -->
+                        <article class="card-sabor" data-categoria="fruta vegano">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/acai-e-sorbets.jpg" type="image/jpeg">
+                                <img src="assets/sabores/acai-e-sorbets.jpg" alt="Açaí e sorbets refrescantes" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Açaí 120 ml</h3>
+                                <p class="card-description">Açaí cremoso e refrescante. Sabores: Açaí com trufa de leitinho, Açaí com trufa de avelã, Açaí puro</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Açaí 120 ml" data-preco="8,00">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                </div>
 
-                <!-- Potes 1,5L -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/potes-1-5l.jpg" type="image/jpeg">
-                        <img src="assets/sabores/potes-1-5l.jpg" alt="Potes de sorvete 1,5 litros" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Potes 1,5L (Recheados)</h3>
-                        <p class="card-description">Potes familiares com 1,5 litros de sorvete artesanal recheado. Sabores: Bombom de avelã, Brigadeiro, Chocolate, Crocante, Churros, Espanhola, Flocos, Morango, Morango trufado, Napolitano, Ninho trufado, Passas ao rum, Pistache, Prestígio, Torta de limão</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Potes 1,5L (Recheados)" data-preco="29,50">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                <!-- Setor: Potes e Embalagens Grandes -->
+                <div class="setor-cardapio" data-setor="potes">
+                    <h2 class="setor-titulo">Potes e Embalagens Grandes</h2>
+                    <div class="cards-grid">
+                        <!-- Potes 1,5L -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/potes-1-5l.jpg" type="image/jpeg">
+                                <img src="assets/sabores/potes-1-5l.jpg" alt="Potes de sorvete 1,5 litros" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Potes 1,5L (Recheados)</h3>
+                                <p class="card-description">Potes familiares com 1,5 litros de sorvete artesanal recheado. Sabores: Bombom de avelã, Brigadeiro, Chocolate, Crocante, Churros, Espanhola, Flocos, Morango, Morango trufado, Napolitano, Ninho trufado, Passas ao rum, Pistache, Prestígio, Torta de limão</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Potes 1,5L (Recheados)" data-preco="29,50">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Caixa 10L -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/caixa-10l.jpg" type="image/jpeg">
-                        <img src="assets/sabores/caixa-10l.jpg" alt="Caixa de sorvete 10 litros" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Caixa 10L</h3>
-                        <p class="card-description">Caixa grande com 10 litros, ideal para eventos e festas</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Caixa 10L" data-preco="[INSERIR]">Adicionar</button>
-                        </div>
+                        <!-- Caixa 10L -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/caixa-10l.jpg" type="image/jpeg">
+                                <img src="assets/sabores/caixa-10l.jpg" alt="Caixa de sorvete 10 litros" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Caixa 10L</h3>
+                                <p class="card-description">Caixa grande com 10 litros, ideal para eventos e festas</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Caixa 10L" data-preco="[INSERIR]">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                </div>
 
-                <!-- Bolinhos -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/bolinhos.jpg" type="image/jpeg">
-                        <img src="assets/sabores/bolinhos.jpg" alt="Bolinhos de sorvete" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Bolinhos</h3>
-                        <p class="card-description">Deliciosos bolinhos de sorvete, perfeitos para o lanche</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Bolinhos" data-preco="[INSERIR]">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                <!-- Setor: Produtos Especiais -->
+                <div class="setor-cardapio" data-setor="especiais">
+                    <h2 class="setor-titulo">Produtos Especiais</h2>
+                    <div class="cards-grid">
+                        <!-- Copo Mirim 200 ml -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
+                                <img src="assets/sabores/copinho.jpg" alt="Copo Mirim 200 ml recheado" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Copo Mirim 200 ml (Recheado)</h3>
+                                <p class="card-description">Copo pequeno com 200ml de sorvete recheado. Sabores: Brigadeiro, Morango, Prestígio, Romeu e Julieta</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Copo Mirim 200 ml (Recheado)" data-preco="4,50">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Esfirras -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/esfirras.jpg" type="image/jpeg">
-                        <img src="assets/sabores/esfirras.jpg" alt="Esfirras de sorvete" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Esfirras</h3>
-                        <p class="card-description">Esfirras recheadas com sorvete artesanal</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Esfirras" data-preco="[INSERIR]">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                        <!-- Bolinhos -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/bolinhos.jpg" type="image/jpeg">
+                                <img src="assets/sabores/bolinhos.jpg" alt="Bolinhos de sorvete" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Bolinhos</h3>
+                                <p class="card-description">Deliciosos bolinhos de sorvete, perfeitos para o lanche</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Bolinhos" data-preco="[INSERIR]">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Copo Mirim 200 ml -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
-                        <img src="assets/sabores/copinho.jpg" alt="Copo Mirim 200 ml recheado" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Copo Mirim 200 ml (Recheado)</h3>
-                        <p class="card-description">Copo pequeno com 200ml de sorvete recheado. Sabores: Brigadeiro, Morango, Prestígio, Romeu e Julieta</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Copo Mirim 200 ml (Recheado)" data-preco="4,50">Adicionar</button>
-                        </div>
+                        <!-- Esfirras -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/esfirras.jpg" type="image/jpeg">
+                                <img src="assets/sabores/esfirras.jpg" alt="Esfirras de sorvete" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Esfirras</h3>
+                                <p class="card-description">Esfirras recheadas com sorvete artesanal</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Esfirras" data-preco="[INSERIR]">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                </div>
 
-                <!-- Coberturas 1,3kg -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
-                        <img src="assets/sabores/sundae.jpg" alt="Coberturas 1,3kg" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Coberturas 1,3kg</h3>
-                        <p class="card-description">Coberturas deliciosas em embalagem de 1,3kg. Sabores: Chocolate (R$ 16,00), Morango (R$ 14,00), Caramelo (R$ 14,00)</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Coberturas 1,3kg" data-preco="14,00">Adicionar</button>
-                        </div>
-                    </div>
-                </article>
+                <!-- Setor: Coberturas -->
+                <div class="setor-cardapio" data-setor="coberturas">
+                    <h2 class="setor-titulo">Coberturas</h2>
+                    <div class="cards-grid">
+                        <!-- Coberturas 1,3kg -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
+                                <img src="assets/sabores/sundae.jpg" alt="Coberturas 1,3kg" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Coberturas 1,3kg</h3>
+                                <p class="card-description">Coberturas deliciosas em embalagem de 1,3kg. Sabores: Chocolate (R$ 16,00), Morango (R$ 14,00), Caramelo (R$ 14,00)</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Coberturas 1,3kg" data-preco="14,00">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
 
-                <!-- Coberturas 250g -->
-                <article class="card-sabor" data-categoria="creme">
-                    <picture class="card-image">
-                        <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
-                        <img src="assets/sabores/sundae.jpg" alt="Coberturas 250g" loading="lazy">
-                    </picture>
-                    <div class="card-content">
-                        <h3 class="card-title">Coberturas 250g</h3>
-                        <p class="card-description">Coberturas deliciosas em embalagem de 250g. Sabores: Chocolate (R$ 4,50), Morango (R$ 4,20), Caramelo (R$ 4,20)</p>
-                        <div class="card-footer">
-                            <button class="btn btn-small" data-sabor="Coberturas 250g" data-preco="4,20">Adicionar</button>
-                        </div>
+                        <!-- Coberturas 250g -->
+                        <article class="card-sabor" data-categoria="creme">
+                            <picture class="card-image">
+                                <source srcset="assets/sabores/sundae.jpg" type="image/jpeg">
+                                <img src="assets/sabores/sundae.jpg" alt="Coberturas 250g" loading="lazy">
+                            </picture>
+                            <div class="card-content">
+                                <h3 class="card-title">Coberturas 250g</h3>
+                                <p class="card-description">Coberturas deliciosas em embalagem de 250g. Sabores: Chocolate (R$ 4,50), Morango (R$ 4,20), Caramelo (R$ 4,20)</p>
+                                <div class="card-footer">
+                                    <button class="btn btn-small" data-sabor="Coberturas 250g" data-preco="4,20">Adicionar</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                </div>
             </div>
             
             <div id="semResultados" class="sem-resultados" style="display: none;">

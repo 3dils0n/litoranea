@@ -581,7 +581,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const semResultados = document.getElementById('semResultados');
     
     let categoriaAtiva = 'todos';
-    let termoBusca = '';
     
     // Filtros por categoria
     filtroBtns.forEach(btn => {
@@ -598,7 +597,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Busca por texto
     if (inputBusca) {
         inputBusca.addEventListener('input', function() {
-            termoBusca = this.value.toLowerCase().trim();
             filtrarCards();
         });
     }
@@ -606,9 +604,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function filtrarCards() {
         if (!cardsGrid) return;
         
+        const termoBusca = inputBusca ? inputBusca.value.toLowerCase().trim() : '';
         const cards = cardsGrid.querySelectorAll('.card-sabor');
+        const setores = cardsGrid.querySelectorAll('.setor-cardapio');
         let cardsVisiveis = 0;
         
+        // Filtrar cards
         cards.forEach(card => {
             const categorias = card.getAttribute('data-categoria').toLowerCase();
             const titulo = card.querySelector('.card-title').textContent.toLowerCase();
@@ -624,6 +625,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 cardsVisiveis++;
             } else {
                 card.style.display = 'none';
+            }
+        });
+        
+        // Ocultar setores sem cards visíveis
+        setores.forEach(setor => {
+            const cardsNoSetor = setor.querySelectorAll('.card-sabor');
+            const temCardVisivel = Array.from(cardsNoSetor).some(card => card.style.display !== 'none');
+            
+            if (temCardVisivel) {
+                setor.style.display = 'block';
+            } else {
+                setor.style.display = 'none';
             }
         });
         

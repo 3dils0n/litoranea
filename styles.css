@@ -475,6 +475,29 @@ section {
    CARDS DE SABORES
    ============================================ */
 
+/* ============================================
+   SETORES DO CARDÁPIO
+   ============================================ */
+
+.setor-cardapio {
+    margin-bottom: var(--espaco-xl);
+}
+
+.setor-cardapio:last-child {
+    margin-bottom: 0;
+}
+
+.setor-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cor-marrom-escuro);
+    margin-bottom: var(--espaco-lg);
+    padding-bottom: var(--espaco-sm);
+    border-bottom: 3px solid var(--cor-marrom);
+    text-align: left;
+}
+
 .cards-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1676,6 +1699,10 @@ section {
         gap: var(--espaco-sm);
     }
     
+    .setor-titulo {
+        font-size: 2.2rem;
+    }
+    
     .cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1731,6 +1758,10 @@ section {
     
     .hero-subtitle {
         font-size: 1.5rem;
+    }
+    
+    .setor-titulo {
+        font-size: 2.5rem;
     }
     
     .cards-grid {
