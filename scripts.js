@@ -64,6 +64,7 @@ function abrirModal() {
         modal.classList.add('active');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        document.body.style.overflowX = 'hidden';
         
         // Focar no primeiro campo
         const primeiroInput = modal.querySelector('input');
@@ -79,6 +80,7 @@ function fecharModal() {
         modal.classList.remove('active');
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        document.body.style.overflowX = '';
     }
 }
 
@@ -171,7 +173,7 @@ function atualizarListaItens() {
     itensPedidoDiv.innerHTML = '';
     
     if (itensPedido.length === 0) {
-        itensPedidoDiv.innerHTML = '<p style="color: #666; font-style: italic;">Nenhum item adicionado ainda.</p>';
+        itensPedidoDiv.innerHTML = '<p>Nenhum item adicionado ainda.</p>';
         return;
     }
     
