@@ -791,24 +791,45 @@ async function carregarDados() {
     
     try {
         // Carregar destaques
-        try {
-            console.log('Tentando carregar destaques.json...');
-            const dados = await fetchJSON('destaques.json');
-            console.log('Dados carregados:', dados);
-            if (Array.isArray(dados) && dados.length > 0) {
-                destaquesData = dados;
-                console.log(`✅ Carregados ${destaquesData.length} destaques com sucesso!`);
-                renderizarDestaques();
-            } else if (Array.isArray(dados) && dados.length === 0) {
-                console.warn('⚠️ destaques.json está vazio (array vazio)');
-                destaquesData = [];
-                renderizarDestaques();
-            } else {
-                console.warn('❌ Formato inválido em destaques.json. Esperado array. Recebido:', typeof dados, dados);
-                destaquesData = [];
-                renderizarDestaques();
+        // PRIORIDADE: localStorage primeiro (dados mais recentes), depois JSON
+        let destaquesCarregados = false;
+        const destaquesStored = localStorage.getItem('admin_destaques');
+        if (destaquesStored) {
+            try {
+                const dadosStored = JSON.parse(destaquesStored);
+                if (Array.isArray(dadosStored) && dadosStored.length > 0) {
+                    destaquesData = dadosStored;
+                    console.log(`✅ Carregados ${destaquesData.length} destaques do localStorage (prioridade)`);
+                    renderizarDestaques();
+                    destaquesCarregados = true;
+                } else {
+                    console.log('⚠️ Dados no localStorage estão vazios, tentando carregar do JSON...');
+                }
+            } catch (e) {
+                console.warn('⚠️ Erro ao parsear dados do localStorage, tentando carregar do JSON...', e);
             }
-        } catch (error) {
+        }
+        
+        // Se não carregou do localStorage, tentar do JSON
+        if (!destaquesCarregados) {
+            try {
+                console.log('Tentando carregar destaques.json...');
+                const dados = await fetchJSON('destaques.json');
+                console.log('Dados carregados:', dados);
+                if (Array.isArray(dados) && dados.length > 0) {
+                    destaquesData = dados;
+                    console.log(`✅ Carregados ${destaquesData.length} destaques do JSON com sucesso!`);
+                    renderizarDestaques();
+                } else if (Array.isArray(dados) && dados.length === 0) {
+                    console.warn('⚠️ destaques.json está vazio (array vazio)');
+                    destaquesData = [];
+                    renderizarDestaques();
+                } else {
+                    console.warn('❌ Formato inválido em destaques.json. Esperado array. Recebido:', typeof dados, dados);
+                    destaquesData = [];
+                    renderizarDestaques();
+                }
+            } catch (error) {
             if (error.isFileProtocol) {
                 console.warn('⚠️ Protocolo file:// detectado. Usando dados padrão dos destaques.');
             } else {
