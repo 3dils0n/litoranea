@@ -10,10 +10,11 @@ let itensPedido = [];
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    const nav = document.getElementById('nav');
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     
-    if (navToggle && navMenu) {
+    if (navToggle && navMenu && nav) {
         navToggle.addEventListener('click', function() {
             const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
             navToggle.setAttribute('aria-expanded', !isExpanded);
@@ -66,6 +67,11 @@ function abrirModal() {
         document.body.style.overflow = 'hidden';
         document.body.style.overflowX = 'hidden';
         
+        // Popular o select de itens quando o modal abrir (caso ainda não esteja populado)
+        setTimeout(() => {
+            popularSelectItens();
+        }, 100);
+        
         // Focar no primeiro campo
         const primeiroInput = modal.querySelector('input');
         if (primeiroInput) {
@@ -91,43 +97,53 @@ function fecharModal() {
 
 // Botões para abrir modal
 document.addEventListener('DOMContentLoaded', function() {
-    const btnPedirAgora = document.getElementById('btnPedirAgora');
-    const btnHeroPedir = document.getElementById('btnHeroPedir');
-    const modalClose = document.getElementById('modalClose');
-    const btnCancelar = document.getElementById('btnCancelar');
-    
-    if (btnPedirAgora) {
-        btnPedirAgora.addEventListener('click', abrirModal);
-    }
-    
-    if (btnHeroPedir) {
-        btnHeroPedir.addEventListener('click', abrirModal);
-    }
-    
-    if (modalClose) {
-        modalClose.addEventListener('click', fecharModal);
-    }
-    
-    if (btnCancelar) {
-        btnCancelar.addEventListener('click', fecharModal);
-    }
-    
-    // Fechar modal ao clicar fora
-    const modal = document.getElementById('modalPedido');
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
+    try {
+        const btnPedirAgora = document.getElementById('btnPedirAgora');
+        const btnHeroPedir = document.getElementById('btnHeroPedir');
+        const modalClose = document.getElementById('modalClose');
+        const btnCancelar = document.getElementById('btnCancelar');
+        
+        if (btnPedirAgora) {
+            btnPedirAgora.addEventListener('click', function(e) {
+                e.preventDefault();
+                abrirModal();
+            });
+        }
+        
+        if (btnHeroPedir) {
+            btnHeroPedir.addEventListener('click', function(e) {
+                e.preventDefault();
+                abrirModal();
+            });
+        }
+        
+        if (modalClose) {
+            modalClose.addEventListener('click', fecharModal);
+        }
+        
+        if (btnCancelar) {
+            btnCancelar.addEventListener('click', fecharModal);
+        }
+        
+        // Fechar modal ao clicar fora
+        const modal = document.getElementById('modalPedido');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    fecharModal();
+                }
+            });
+        }
+        
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
                 fecharModal();
             }
         });
+    } catch (error) {
+        console.error('Erro ao inicializar botões do modal:', error);
     }
-    
-    // Fechar modal com ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-            fecharModal();
-        }
-    });
 });
 
 // ============================================
@@ -247,12 +263,42 @@ function atualizarTotal() {
     const totalPedidoElement = document.getElementById('totalPedido');
     if (!totalPedidoElement) return;
     
-    const total = itensPedido.reduce((sum, item) => {
+    // Calcular total dos itens
+    const totalItens = itensPedido.reduce((sum, item) => {
         const preco = parseFloat(item.preco.replace(',', '.'));
         return sum + (preco * item.quantidade);
     }, 0);
     
-    totalPedidoElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    // Verificar se é entrega e adicionar taxa
+    const formaEntrega = document.getElementById('formaEntrega');
+    let taxaEntrega = 0;
+    
+    if (formaEntrega && formaEntrega.value === 'entrega') {
+        // Carregar taxa de entrega do localStorage ou usar padrão
+        const taxaSalva = localStorage.getItem('config_pedido_taxa');
+        taxaEntrega = taxaSalva ? parseFloat(taxaSalva) : 16.00;
+    }
+    
+    const total = totalItens + taxaEntrega;
+    
+    // Atualizar exibição do total
+    if (taxaEntrega > 0) {
+        totalPedidoElement.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem;">
+                <span style="font-size: 0.9rem; color: var(--cor-texto-claro);">
+                    Subtotal: R$ ${totalItens.toFixed(2).replace('.', ',')}
+                </span>
+                <span style="font-size: 0.9rem; color: var(--cor-texto-claro);">
+                    Taxa de Entrega: R$ ${taxaEntrega.toFixed(2).replace('.', ',')}
+                </span>
+                <span style="font-weight: bold; font-size: 1.1rem;">
+                    Total: R$ ${total.toFixed(2).replace('.', ',')}
+                </span>
+            </div>
+        `;
+    } else {
+        totalPedidoElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
 }
 
 function gerarOpcoesSabores(saborAtual) {
@@ -278,83 +324,194 @@ function gerarOpcoesSabores(saborAtual) {
     ).join('');
 }
 
+// Variável global para armazenar estrutura de itens
+let itensComSabores = {};
+
+// Função para carregar estrutura de itens
+function carregarEstruturaItens() {
+    const itensComSaboresSalvos = localStorage.getItem('config_pedido_itensComSabores');
+    const itensSalvos = localStorage.getItem('config_pedido_itens');
+    const precosSalvos = localStorage.getItem('config_pedido_precos');
+    
+    itensComSabores = {};
+    
+    // Se houver estrutura completa salva, usar ela
+    if (itensComSaboresSalvos) {
+        try {
+            itensComSabores = JSON.parse(itensComSaboresSalvos);
+        } catch (e) {
+            console.warn('Erro ao carregar itensComSabores do localStorage:', e);
+        }
+    }
+    
+    // Se não houver estrutura completa, tentar construir a partir da lista de itens
+    if (Object.keys(itensComSabores).length === 0 && itensSalvos) {
+        try {
+            const itens = JSON.parse(itensSalvos);
+            itens.forEach(item => {
+                if (!itensComSabores[item.produto]) {
+                    itensComSabores[item.produto] = {
+                        preco: item.preco,
+                        sabores: []
+                    };
+                }
+                if (!itensComSabores[item.produto].sabores.includes(item.sabor)) {
+                    itensComSabores[item.produto].sabores.push(item.sabor);
+                }
+            });
+        } catch (e) {
+            console.warn('Erro ao construir itensComSabores:', e);
+        }
+    }
+    
+    // Se ainda não tiver estrutura, usar valores padrão
+    if (Object.keys(itensComSabores).length === 0) {
+        const precosItens = precosSalvos ? JSON.parse(precosSalvos) : {};
+        
+        // Estrutura de dados padrão com itens e seus sabores específicos
+        itensComSabores = {
+            'Picolés de Fruta': {
+                preco: precosItens['Picolés de Fruta'] || '2,50',
+                sabores: ['Açaí', 'Limão', 'Maracujá', 'Uva', 'Melancia', 'Groselha', 'Goiaba', 'Tangerina']
+            },
+            'Picolés ao Leite': {
+                preco: precosItens['Picolés ao Leite'] || '4,00',
+                sabores: ['Abacaxi', 'Chocolate', 'Coco', 'Espanhola', 'Leite condensado', 'Limão suíço', 'Milho verde', 'Morango', 'Sensação']
+            },
+            'Picolés Especiais': {
+                preco: precosItens['Picolés Especiais'] || '8,00',
+                sabores: ['Brigadeiro', 'Crocante', 'Skimo', 'Tentação', 'Napolitano']
+            },
+            'Açaí 120 ml': {
+                preco: precosItens['Açaí 120 ml'] || '8,00',
+                sabores: ['Açaí com trufa de leitinho', 'Açaí com trufa de avelã', 'Açaí puro']
+            },
+            'Sundae Plus': {
+                preco: precosItens['Sundae Plus'] || '8,00',
+                sabores: ['Chocolate', 'Morango']
+            },
+            'Potes 1,5L (Recheados)': {
+                preco: precosItens['Potes 1,5L (Recheados)'] || '29,50',
+                sabores: ['Bombom de avelã', 'Brigadeiro', 'Chocolate', 'Crocante', 'Churros', 'Espanhola', 'Flocos', 'Morango', 'Morango trufado', 'Napolitano', 'Ninho trufado', 'Passas ao rum', 'Pistache', 'Prestígio', 'Torta de limão']
+            },
+            'Copão 430 ml': {
+                preco: precosItens['Copão 430 ml'] || '8,00',
+                sabores: ['Blue ice', 'Chocolate', 'Coco', 'Flocos', 'Milho verde', 'Morango', 'Napolitano', 'Passas ao rum']
+            },
+            'Copo Mirim 200 ml (Recheado)': {
+                preco: precosItens['Copo Mirim 200 ml (Recheado)'] || '4,50',
+                sabores: ['Brigadeiro', 'Morango', 'Prestígio', 'Romeu e Julieta']
+            },
+            'Coberturas 1,3kg': {
+                preco: precosItens['Coberturas 1,3kg'] || '0,00',
+                sabores: ['Chocolate (R$ 16,00)', 'Morango (R$ 14,00)', 'Caramelo (R$ 14,00)']
+            },
+            'Coberturas 250g': {
+                preco: precosItens['Coberturas 250g'] || '0,00',
+                sabores: ['Chocolate (R$ 4,50)', 'Morango (R$ 4,20)', 'Caramelo (R$ 4,20)']
+            },
+            'Sorvete Diet': {
+                preco: precosItens['Sorvete Diet'] || '0,00',
+                sabores: ['Sem sabor específico']
+            },
+            'Caixa 10L': {
+                preco: precosItens['Caixa 10L'] || '0,00',
+                sabores: ['Sem sabor específico']
+            },
+            'Bolinhos': {
+                preco: precosItens['Bolinhos'] || '0,00',
+                sabores: ['Sem sabor específico']
+            },
+            'Esfirras': {
+                preco: precosItens['Esfirras'] || '0,00',
+                sabores: ['Sem sabor específico']
+            }
+        };
+    }
+    
+    return itensComSabores;
+}
+
+// Função para popular o select de itens
+function popularSelectItens() {
+    const selectSaborAdicionar = document.getElementById('selectSaborAdicionar');
+    if (!selectSaborAdicionar) return;
+    
+    // Carregar estrutura de itens se ainda não foi carregada
+    if (Object.keys(itensComSabores).length === 0) {
+        carregarEstruturaItens();
+    }
+    
+    // Verificar se já está populado (mais de 1 opção = já tem itens além do placeholder)
+    if (selectSaborAdicionar.options.length > 1) {
+        return; // Já está populado
+    }
+    
+    // Limpar opções existentes (exceto a primeira que é o placeholder)
+    selectSaborAdicionar.innerHTML = '<option value="">Selecione um item</option>';
+    
+    // Popular com os itens
+    Object.keys(itensComSabores).forEach(itemNome => {
+        const option = document.createElement('option');
+        option.value = itemNome;
+        option.textContent = itemNome;
+        option.dataset.preco = itensComSabores[itemNome].preco;
+        selectSaborAdicionar.appendChild(option);
+    });
+}
+
 // Adicionar novo item manualmente
 document.addEventListener('DOMContentLoaded', function() {
     const btnAdicionarItem = document.getElementById('btnAdicionarItem');
     const selectSaborAdicionar = document.getElementById('selectSaborAdicionar');
     const selectSaborEspecifico = document.getElementById('selectSaborEspecifico');
     
-    // Estrutura de dados com itens e seus sabores específicos
-    const itensComSabores = {
-        'Picolés de Fruta': {
-            preco: '2,50',
-            sabores: ['Açaí', 'Limão', 'Maracujá', 'Uva', 'Melancia', 'Groselha', 'Goiaba', 'Tangerina']
-        },
-        'Picolés ao Leite': {
-            preco: '4,00',
-            sabores: ['Abacaxi', 'Chocolate', 'Coco', 'Espanhola', 'Leite condensado', 'Limão suíço', 'Milho verde', 'Morango', 'Sensação']
-        },
-        'Picolés Especiais': {
-            preco: '8,00',
-            sabores: ['Brigadeiro', 'Crocante', 'Skimo', 'Tentação', 'Napolitano']
-        },
-        'Açaí 120 ml': {
-            preco: '8,00',
-            sabores: ['Açaí com trufa de leitinho', 'Açaí com trufa de avelã', 'Açaí puro']
-        },
-        'Sundae Plus': {
-            preco: '8,00',
-            sabores: ['Chocolate', 'Morango']
-        },
-        'Potes 1,5L (Recheados)': {
-            preco: '29,50',
-            sabores: ['Bombom de avelã', 'Brigadeiro', 'Chocolate', 'Crocante', 'Churros', 'Espanhola', 'Flocos', 'Morango', 'Morango trufado', 'Napolitano', 'Ninho trufado', 'Passas ao rum', 'Pistache', 'Prestígio', 'Torta de limão']
-        },
-        'Copão 430 ml': {
-            preco: '8,00',
-            sabores: ['Blue ice', 'Chocolate', 'Coco', 'Flocos', 'Milho verde', 'Morango', 'Napolitano', 'Passas ao rum']
-        },
-        'Copo Mirim 200 ml (Recheado)': {
-            preco: '4,50',
-            sabores: ['Brigadeiro', 'Morango', 'Prestígio', 'Romeu e Julieta']
-        },
-        'Coberturas 1,3kg': {
-            preco: '0,00',
-            sabores: ['Chocolate (R$ 16,00)', 'Morango (R$ 14,00)', 'Caramelo (R$ 14,00)']
-        },
-        'Coberturas 250g': {
-            preco: '0,00',
-            sabores: ['Chocolate (R$ 4,50)', 'Morango (R$ 4,20)', 'Caramelo (R$ 4,20)']
-        },
-        'Sorvete Diet': {
-            preco: '0,00',
-            sabores: ['Sem sabor específico']
-        },
-        'Caixa 10L': {
-            preco: '0,00',
-            sabores: ['Sem sabor específico']
-        },
-        'Bolinhos': {
-            preco: '0,00',
-            sabores: ['Sem sabor específico']
-        },
-        'Esfirras': {
-            preco: '0,00',
-            sabores: ['Sem sabor específico']
-        }
-    };
+    // Carregar estrutura de itens
+    carregarEstruturaItens();
     
-    // Preencher o select de itens
-    if (selectSaborAdicionar) {
-        Object.keys(itensComSabores).forEach(itemNome => {
-            const option = document.createElement('option');
-            option.value = itemNome;
-            option.textContent = itemNome;
-            option.dataset.preco = itensComSabores[itemNome].preco;
-            selectSaborAdicionar.appendChild(option);
-        });
+    // Popular o select de itens
+    popularSelectItens();
+    
+    // Função para recarregar estrutura de itens
+    function recarregarEstruturaItens() {
+        carregarEstruturaItens();
+        popularSelectItens();
         
-        // Quando selecionar um item, mostrar os sabores específicos
+        // Atualizar preços dos itens já adicionados ao pedido
+        const itensSalvos = localStorage.getItem('config_pedido_itens');
+        if (itensSalvos) {
+            try {
+                const itens = JSON.parse(itensSalvos);
+                itensPedido.forEach(item => {
+                    const itemConfig = itens.find(i => i.produto === item.produto && i.sabor === item.sabor);
+                    if (itemConfig) {
+                        item.preco = itemConfig.preco;
+                    } else if (itensComSabores[item.produto]) {
+                        item.preco = itensComSabores[item.produto].preco;
+                    }
+                });
+            } catch (e) {
+                console.warn('Erro ao atualizar preços dos itens:', e);
+            }
+        }
+        
+        atualizarListaItens();
+    }
+    
+    // Atualizar quando as configurações mudarem
+    window.addEventListener('configPedidoAtualizado', function() {
+        recarregarEstruturaItens();
+    });
+    
+    // Monitorar mudanças no localStorage (para quando admin salvar em outra aba/janela)
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'config_pedido_taxa' || e.key === 'config_pedido_precos' || e.key === 'config_pedido_itens' || e.key === 'config_pedido_itensComSabores') {
+            recarregarEstruturaItens();
+        }
+    });
+    
+    // Quando selecionar um item, mostrar os sabores específicos
+    if (selectSaborAdicionar) {
         selectSaborAdicionar.addEventListener('change', function() {
             const itemSelecionado = this.value;
             
@@ -418,6 +575,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Verificar se precisa escolher sabor específico
             let saborCompleto = itemSelecionado;
             let precoFinal = preco;
+            let saborEspecifico = '';
             
             if (sabores && sabores.length > 0 && sabores[0] !== 'Sem sabor específico') {
                 if (!selectSaborEspecificoAtual || !selectSaborEspecificoAtual.value || selectSaborEspecificoAtual.style.display === 'none' || selectSaborEspecificoAtual.style.display === '') {
@@ -425,25 +583,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                const saborEspecifico = selectSaborEspecificoAtual.value.trim();
+                saborEspecifico = selectSaborEspecificoAtual.value.trim();
                 saborCompleto = `${itemSelecionado} - ${saborEspecifico}`;
                 
-                // Extrair preço das coberturas se houver
+                // Buscar preço específico do sabor na lista de itens configurados
+                const itensConfig = localStorage.getItem('config_pedido_itens');
+                if (itensConfig) {
+                    try {
+                        const itens = JSON.parse(itensConfig);
+                        const itemConfig = itens.find(i => i.produto === itemSelecionado && i.sabor === saborEspecifico);
+                        if (itemConfig) {
+                            precoFinal = itemConfig.preco;
+                        }
+                    } catch (e) {
+                        console.warn('Erro ao buscar preço específico:', e);
+                    }
+                }
+                
+                // Extrair preço das coberturas se houver (fallback)
                 if (itemSelecionado === 'Coberturas 1,3kg' || itemSelecionado === 'Coberturas 250g') {
                     const matchPreco = saborEspecifico.match(/R\$ ([\d,]+)/);
-                    if (matchPreco) {
+                    if (matchPreco && precoFinal === preco) {
                         precoFinal = matchPreco[1];
                     }
                 }
             }
             
-            // Separar produto e sabor
+            // Separar produto e sabor (já definido acima)
             let produto = itemSelecionado;
-            let saborEspecifico = '';
-            
-            if (sabores && sabores.length > 0 && sabores[0] !== 'Sem sabor específico') {
-                saborEspecifico = selectSaborEspecificoAtual.value.trim();
-            }
             
             itensPedido.push({
                 produto: produto,
@@ -484,10 +651,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const nome = document.getElementById('nome').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
+            const formaEntrega = document.getElementById('formaEntrega');
             const endereco = document.getElementById('endereco').value.trim();
             const observacoes = document.getElementById('observacoes').value.trim();
             
-            if (!nome || !telefone || !endereco) {
+            if (!nome || !telefone || !formaEntrega || !formaEntrega.value || !endereco) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
                 return;
             }
@@ -496,6 +664,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const urlWhatsApp = gerarWhatsappPedido(mensagem);
             
             window.open(urlWhatsApp, '_blank', 'noopener,noreferrer');
+        });
+        
+        // Event listener para atualizar total quando forma de entrega mudar
+        const formaEntrega = document.getElementById('formaEntrega');
+        if (formaEntrega) {
+            formaEntrega.addEventListener('change', function() {
+                atualizarTotal();
+            });
+        }
+        
+        // Atualizar total quando configurações mudarem (taxa de entrega)
+        window.addEventListener('configPedidoAtualizado', function() {
+            atualizarTotal();
+        });
+        
+        // Monitorar mudanças na taxa de entrega via storage
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'config_pedido_taxa') {
+                atualizarTotal();
+            }
         });
     }
     
@@ -535,7 +723,13 @@ function gerarMensagemWhatsApp(nome, telefone, endereco, observacoes) {
     let mensagem = `🍦 *Pedido - Sorvetes Litorâneo*\n\n`;
     mensagem += `*Cliente:* ${nome}\n`;
     mensagem += `*Telefone:* ${telefone}\n`;
+    
+    // Forma de entrega
+    const formaEntrega = document.getElementById('formaEntrega');
+    const formaEntregaTexto = formaEntrega && formaEntrega.value === 'entrega' ? 'Entrega' : 'Retirada';
+    mensagem += `*Forma de Entrega:* ${formaEntregaTexto}\n`;
     mensagem += `*Endereço:* ${endereco}\n\n`;
+    
     mensagem += `*Itens do Pedido:*\n`;
     
     itensPedido.forEach((item, index) => {
@@ -551,12 +745,23 @@ function gerarMensagemWhatsApp(nome, telefone, endereco, observacoes) {
         mensagem += `   Qtd: ${item.quantidade} | Preço: R$ ${item.preco}\n\n`;
     });
     
-    // Calcular total
-    const total = itensPedido.reduce((sum, item) => {
+    // Calcular total dos itens
+    const totalItens = itensPedido.reduce((sum, item) => {
         const preco = parseFloat(item.preco.replace(',', '.'));
         return sum + (preco * item.quantidade);
     }, 0);
     
+    // Adicionar taxa de entrega se for entrega
+    let taxaEntrega = 0;
+    if (formaEntrega && formaEntrega.value === 'entrega') {
+        // Carregar taxa de entrega do localStorage ou usar padrão
+        const taxaSalva = localStorage.getItem('config_pedido_taxa');
+        taxaEntrega = taxaSalva ? parseFloat(taxaSalva) : 16.00;
+        mensagem += `*Subtotal:* R$ ${totalItens.toFixed(2).replace('.', ',')}\n`;
+        mensagem += `*Taxa de Entrega:* R$ ${taxaEntrega.toFixed(2).replace('.', ',')}\n`;
+    }
+    
+    const total = totalItens + taxaEntrega;
     mensagem += `*Total: R$ ${total.toFixed(2).replace('.', ',')}*\n`;
     
     if (observacoes) {
@@ -571,6 +776,369 @@ function gerarWhatsappPedido(mensagem) {
 }
 
 // ============================================
+// CARREGAR DADOS DOS JSONs PARA AS PÁGINAS
+// ============================================
+
+// Carregar destaques na página inicial
+async function carregarDestaques() {
+    const container = document.getElementById('destaquesContainer');
+    if (!container) return;
+    
+    let destaques = null;
+    
+    // SEMPRE verificar localStorage primeiro (prioridade para alterações do admin)
+    try {
+        const destaquesStored = localStorage.getItem('admin_destaques');
+        if (destaquesStored) {
+            destaques = JSON.parse(destaquesStored);
+            console.log('✅ Carregado destaques.json do localStorage (alterações do admin)');
+        }
+    } catch (error) {
+        console.warn('Erro ao carregar do localStorage:', error);
+    }
+    
+    // Se não encontrou no localStorage, tentar fetch do arquivo JSON (servidor HTTP)
+    if (!destaques) {
+        try {
+            const response = await fetch('destaques.json');
+            if (response.ok) {
+                destaques = await response.json();
+                console.log('✅ Carregado destaques.json do servidor');
+            }
+        } catch (error) {
+            console.warn('Não foi possível carregar destaques.json. Usando conteúdo estático.');
+        }
+    }
+    
+    // Se encontrou dados, atualizar o conteúdo
+    if (destaques && Array.isArray(destaques) && destaques.length > 0) {
+        container.innerHTML = '';
+        destaques.forEach(destaque => {
+            const card = document.createElement('article');
+            card.className = 'card-sabor';
+            
+            const extensao = destaque.imagem.split('.').pop();
+            const tipoImagem = extensao === 'png' ? 'image/png' : 'image/jpeg';
+            
+            card.innerHTML = `
+                <picture class="card-image">
+                    <source srcset="${destaque.imagem}" type="${tipoImagem}">
+                    <img src="${destaque.imagem}" alt="${destaque.nome}" loading="lazy">
+                </picture>
+                <div class="card-content">
+                    <h3 class="card-title">${destaque.nome}</h3>
+                    <p class="card-description">${destaque.descricao}</p>
+                    <div class="card-footer">
+                        <button class="btn btn-small" data-sabor="${destaque.nome}" data-preco="${destaque.preco}">Adicionar</button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+        
+        // Reativar event listeners dos botões "Adicionar"
+        reativarBotoesAdicionar();
+        console.log(`✅ Destaques atualizados: ${destaques.length} item(ns)`);
+    } else {
+        console.log('ℹ️ Usando conteúdo estático (fallback)');
+    }
+}
+
+// Carregar cardápio na página de cardápio
+async function carregarCardapio() {
+    const container = document.getElementById('cardsGrid');
+    if (!container) return;
+    
+    let dados = null;
+    
+    // SEMPRE verificar localStorage primeiro (prioridade para alterações do admin)
+    try {
+        const cardapioStored = localStorage.getItem('admin_cardapio');
+        if (cardapioStored) {
+            dados = JSON.parse(cardapioStored);
+            console.log('✅ Carregado cardapio.json do localStorage (alterações do admin)');
+        }
+    } catch (error) {
+        console.warn('Erro ao carregar do localStorage:', error);
+    }
+    
+    // Se não encontrou no localStorage, tentar fetch do arquivo JSON (servidor HTTP)
+    if (!dados) {
+        try {
+            const response = await fetch('cardapio.json');
+            if (response.ok) {
+                dados = await response.json();
+                console.log('✅ Carregado cardapio.json do servidor');
+            }
+        } catch (error) {
+            console.warn('Não foi possível carregar cardapio.json. Usando conteúdo estático.');
+        }
+    }
+    
+    // Se encontrou dados, atualizar o conteúdo
+    if (dados && dados.produtos && Array.isArray(dados.produtos) && dados.produtos.length > 0) {
+        // Verificar se já tem conteúdo estático
+        const temConteudoEstatico = container.querySelectorAll('.setor-cardapio').length > 0;
+        
+        // Agrupar produtos por setor
+        const produtosPorSetor = {};
+        dados.produtos.forEach(produto => {
+            if (!produtosPorSetor[produto.setor]) {
+                produtosPorSetor[produto.setor] = [];
+            }
+            produtosPorSetor[produto.setor].push(produto);
+        });
+        
+        // Limpar conteúdo estático se existir
+        if (temConteudoEstatico) {
+            container.innerHTML = '';
+        }
+        
+        // Ordem dos setores
+        const ordemSetores = ['picolés', 'sorvetes', 'açaí', 'potes', 'especiais', 'coberturas'];
+        const nomesSetores = {
+            'picolés': 'Picolés',
+            'sorvetes': 'Sorvetes',
+            'açaí': 'Açaí',
+            'potes': 'Potes e Embalagens Grandes',
+            'especiais': 'Produtos Especiais',
+            'coberturas': 'Coberturas'
+        };
+        
+        ordemSetores.forEach(setor => {
+            if (produtosPorSetor[setor] && produtosPorSetor[setor].length > 0) {
+                const setorDiv = document.createElement('div');
+                setorDiv.className = 'setor-cardapio';
+                setorDiv.setAttribute('data-setor', setor);
+                
+                const titulo = document.createElement('h2');
+                titulo.className = 'setor-titulo';
+                titulo.textContent = nomesSetores[setor] || setor;
+                setorDiv.appendChild(titulo);
+                
+                const cardsGrid = document.createElement('div');
+                cardsGrid.className = 'cards-grid';
+                
+                produtosPorSetor[setor].forEach(produto => {
+                    const card = criarCardProduto(produto);
+                    cardsGrid.appendChild(card);
+                });
+                
+                setorDiv.appendChild(cardsGrid);
+                container.appendChild(setorDiv);
+            }
+        });
+        
+        // Reativar event listeners dos botões "Adicionar"
+        reativarBotoesAdicionar();
+        
+        // Reativar filtros após carregar
+        setTimeout(() => {
+            if (typeof window.filtrarCards === 'function') {
+                window.filtrarCards();
+            }
+        }, 100);
+        
+        console.log(`✅ Cardápio atualizado: ${dados.produtos.length} produto(s)`);
+    } else {
+        console.log('ℹ️ Usando conteúdo estático (fallback)');
+    }
+}
+
+// Criar card de produto para o cardápio
+function criarCardProduto(produto) {
+    const card = document.createElement('article');
+    card.className = 'card-sabor';
+    card.setAttribute('data-categoria', produto.categoriaFiltro || 'creme');
+    
+    const extensao = produto.imagem.split('.').pop();
+    const tipoImagem = extensao === 'png' ? 'image/png' : 'image/jpeg';
+    
+    card.innerHTML = `
+        <picture class="card-image">
+            <source srcset="${produto.imagem}" type="${tipoImagem}">
+            <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">
+        </picture>
+        <div class="card-content">
+            <h3 class="card-title">${produto.nome}</h3>
+            <p class="card-description">${produto.descricao}</p>
+            <div class="card-footer">
+                <button class="btn btn-small" data-sabor="${produto.nome}" data-preco="${produto.preco}">Adicionar</button>
+            </div>
+        </div>
+    `;
+    
+    return card;
+}
+
+// Carregar texto "Sobre Nós"
+async function carregarSobre() {
+    const container = document.getElementById('historiaContainer');
+    if (!container) return;
+    
+    let dados = null;
+    
+    // SEMPRE verificar localStorage primeiro (prioridade para alterações do admin)
+    try {
+        const sobreStored = localStorage.getItem('admin_sobre');
+        if (sobreStored) {
+            dados = JSON.parse(sobreStored);
+            console.log('✅ Carregado sobre.json do localStorage (alterações do admin)');
+        }
+    } catch (error) {
+        console.warn('Erro ao carregar do localStorage:', error);
+    }
+    
+    // Se não encontrou no localStorage, tentar fetch do arquivo JSON (servidor HTTP)
+    if (!dados) {
+        try {
+            const response = await fetch('sobre.json');
+            if (response.ok) {
+                dados = await response.json();
+                console.log('✅ Carregado sobre.json do servidor');
+            }
+        } catch (error) {
+            console.warn('Não foi possível carregar sobre.json. Usando conteúdo estático.');
+        }
+    }
+    
+    // Se encontrou dados, atualizar o conteúdo
+    if (dados && dados.historia) {
+        // Processar quebras de linha: \n\n vira parágrafo, \n vira <br>
+        const texto = dados.historia
+            .replace(/\r\n/g, '\n')  // Normalizar quebras de linha
+            .replace(/\r/g, '\n');
+        
+        // Dividir por parágrafos (duas quebras de linha)
+        const paragrafos = texto.split(/\n\n+/).filter(p => p.trim());
+        
+        // Renderizar parágrafos
+        container.innerHTML = paragrafos.map(p => {
+            // Substituir quebras de linha simples por <br> dentro do parágrafo
+            const paragrafoComBr = p.trim().replace(/\n/g, '<br>');
+            return `<p>${paragrafoComBr}</p>`;
+        }).join('');
+        
+        console.log(`✅ Texto "Nossa História" atualizado com ${paragrafos.length} parágrafo(s)`);
+    } else {
+        console.log('ℹ️ Usando conteúdo estático (fallback)');
+    }
+}
+
+// Reativar event listeners dos botões "Adicionar" após carregar dados dinâmicos
+function reativarBotoesAdicionar() {
+    const botoesAdicionar = document.querySelectorAll('.card-sabor .btn-small[data-sabor]');
+    botoesAdicionar.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const sabor = this.getAttribute('data-sabor');
+            const preco = this.getAttribute('data-preco');
+            
+            // Abrir modal e pré-selecionar o item
+            abrirModal();
+            
+            setTimeout(() => {
+                const selectSaborAdicionar = document.getElementById('selectSaborAdicionar');
+                if (selectSaborAdicionar && selectSaborAdicionar.options.length > 0) {
+                    selectSaborAdicionar.value = sabor;
+                    const event = new Event('change', { bubbles: true });
+                    selectSaborAdicionar.dispatchEvent(event);
+                }
+            }, 200);
+        });
+    });
+}
+
+// Carregar dados quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    // Carregar destaques se estiver na página inicial
+    if (document.getElementById('destaquesContainer')) {
+        carregarDestaques();
+        
+        // Listener para detectar mudanças no localStorage e atualizar automaticamente
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'admin_destaques') {
+                console.log('🔄 Alteração detectada no localStorage. Atualizando destaques...');
+                carregarDestaques();
+            }
+        });
+        
+        // Também verificar quando a página ganha foco (caso tenha editado em outra aba)
+        window.addEventListener('focus', function() {
+            carregarDestaques();
+        });
+        
+        // Verificar periodicamente se houve mudanças (para mesma aba)
+        let ultimosDestaques = localStorage.getItem('admin_destaques');
+        setInterval(function() {
+            const destaquesAtual = localStorage.getItem('admin_destaques');
+            if (destaquesAtual !== ultimosDestaques) {
+                ultimosDestaques = destaquesAtual;
+                console.log('🔄 Alteração detectada no localStorage. Atualizando destaques...');
+                carregarDestaques();
+            }
+        }, 1000); // Verificar a cada 1 segundo
+    }
+    
+    // Carregar cardápio se estiver na página de cardápio
+    if (document.getElementById('cardsGrid')) {
+        carregarCardapio();
+        
+        // Listener para detectar mudanças no localStorage e atualizar automaticamente
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'admin_cardapio') {
+                console.log('🔄 Alteração detectada no localStorage. Atualizando cardápio...');
+                carregarCardapio();
+            }
+        });
+        
+        // Também verificar quando a página ganha foco (caso tenha editado em outra aba)
+        window.addEventListener('focus', function() {
+            carregarCardapio();
+        });
+        
+        // Verificar periodicamente se houve mudanças (para mesma aba)
+        let ultimoCardapio = localStorage.getItem('admin_cardapio');
+        setInterval(function() {
+            const cardapioAtual = localStorage.getItem('admin_cardapio');
+            if (cardapioAtual !== ultimoCardapio) {
+                ultimoCardapio = cardapioAtual;
+                console.log('🔄 Alteração detectada no localStorage. Atualizando cardápio...');
+                carregarCardapio();
+            }
+        }, 1000); // Verificar a cada 1 segundo
+    }
+    
+    // Carregar sobre se estiver na página sobre
+    if (document.getElementById('historiaContainer')) {
+        carregarSobre();
+        
+        // Listener para detectar mudanças no localStorage e atualizar automaticamente
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'admin_sobre') {
+                console.log('🔄 Alteração detectada no localStorage. Atualizando página...');
+                carregarSobre();
+            }
+        });
+        
+        // Também verificar quando a página ganha foco (caso tenha editado em outra aba)
+        window.addEventListener('focus', function() {
+            carregarSobre();
+        });
+        
+        // Verificar periodicamente se houve mudanças (para mesma aba)
+        let ultimoSobre = localStorage.getItem('admin_sobre');
+        setInterval(function() {
+            const sobreAtual = localStorage.getItem('admin_sobre');
+            if (sobreAtual !== ultimoSobre) {
+                ultimoSobre = sobreAtual;
+                console.log('🔄 Alteração detectada no localStorage. Atualizando página...');
+                carregarSobre();
+            }
+        }, 1000); // Verificar a cada 1 segundo
+    }
+});
+
+// ============================================
 // FILTROS E BUSCA - CARDÁPIO
 // ============================================
 
@@ -580,7 +1148,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardsGrid = document.getElementById('cardsGrid');
     const semResultados = document.getElementById('semResultados');
     
-    let categoriaAtiva = 'todos';
+    // Tornar variável global para poder ser acessada após carregamento dinâmico
+    window.categoriaAtiva = 'todos';
     
     // Filtros por categoria
     filtroBtns.forEach(btn => {
@@ -589,7 +1158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             filtroBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
-            categoriaAtiva = this.getAttribute('data-categoria');
+            window.categoriaAtiva = this.getAttribute('data-categoria');
             filtrarCards();
         });
     });
@@ -601,21 +1170,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    function filtrarCards() {
-        if (!cardsGrid) return;
+    // Tornar função global para poder ser chamada após carregamento dinâmico
+    window.filtrarCards = function() {
+        const cardsGridAtual = document.getElementById('cardsGrid');
+        if (!cardsGridAtual) return;
         
-        const termoBusca = inputBusca ? inputBusca.value.toLowerCase().trim() : '';
-        const cards = cardsGrid.querySelectorAll('.card-sabor');
-        const setores = cardsGrid.querySelectorAll('.setor-cardapio');
+        const inputBuscaAtual = document.getElementById('busca');
+        const semResultadosAtual = document.getElementById('semResultados');
+        const termoBusca = inputBuscaAtual ? inputBuscaAtual.value.toLowerCase().trim() : '';
+        const cards = cardsGridAtual.querySelectorAll('.card-sabor');
+        const setores = cardsGridAtual.querySelectorAll('.setor-cardapio');
         let cardsVisiveis = 0;
         
         // Filtrar cards
         cards.forEach(card => {
-            const categorias = card.getAttribute('data-categoria').toLowerCase();
-            const titulo = card.querySelector('.card-title').textContent.toLowerCase();
-            const descricao = card.querySelector('.card-description').textContent.toLowerCase();
+            const categorias = card.getAttribute('data-categoria') ? card.getAttribute('data-categoria').toLowerCase() : '';
+            const titulo = card.querySelector('.card-title') ? card.querySelector('.card-title').textContent.toLowerCase() : '';
+            const descricao = card.querySelector('.card-description') ? card.querySelector('.card-description').textContent.toLowerCase() : '';
             
-            const matchCategoria = categoriaAtiva === 'todos' || categorias.includes(categoriaAtiva);
+            const matchCategoria = window.categoriaAtiva === 'todos' || categorias.includes(window.categoriaAtiva);
             const matchBusca = !termoBusca || 
                              titulo.includes(termoBusca) || 
                              descricao.includes(termoBusca);
@@ -641,14 +1214,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Mostrar/ocultar mensagem de sem resultados
-        if (semResultados) {
+        if (semResultadosAtual) {
             if (cardsVisiveis === 0) {
-                semResultados.style.display = 'block';
+                semResultadosAtual.style.display = 'block';
             } else {
-                semResultados.style.display = 'none';
+                semResultadosAtual.style.display = 'none';
             }
         }
-    }
+    };
 });
 
 // ============================================

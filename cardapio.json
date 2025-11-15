@@ -1,0 +1,158 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Picolés de Fruta",
+      "categoria": "fruta",
+      "setor": "picolés",
+      "categoriaFiltro": "fruta vegano",
+      "descricao": "Sabores naturais e refrescantes feitos com frutas frescas do litoral. Sabores: Açaí, Limão, Maracujá, Uva, Melancia, Groselha, Goiaba, Tangerina",
+      "preco": "2,50",
+      "imagem": "assets/sabores/picoles-de-fruta.jpg",
+      "sabores": ["Açaí", "Limão", "Maracujá", "Uva", "Melancia", "Groselha", "Goiaba", "Tangerina"]
+    },
+    {
+      "id": 2,
+      "nome": "Picolés ao Leite",
+      "categoria": "creme",
+      "setor": "picolés",
+      "categoriaFiltro": "creme",
+      "descricao": "Cremosos e deliciosos, feitos com leite fresco. Sabores: Abacaxi, Chocolate, Coco, Espanhola, Leite condensado, Limão suíço, Milho verde, Morango, Sensação",
+      "preco": "4,00",
+      "imagem": "assets/sabores/picoles-ao-leite.jpg",
+      "sabores": ["Abacaxi", "Chocolate", "Coco", "Espanhola", "Leite condensado", "Limão suíço", "Milho verde", "Morango", "Sensação"]
+    },
+    {
+      "id": 3,
+      "nome": "Picolés Especiais",
+      "categoria": "creme",
+      "setor": "picolés",
+      "categoriaFiltro": "creme",
+      "descricao": "Picolés com cobertura especial. Sabores: Brigadeiro, Crocante, Skimo, Tentação, Napolitano",
+      "preco": "8,00",
+      "imagem": "assets/sabores/picoles-especiais.jpg",
+      "sabores": ["Brigadeiro", "Crocante", "Skimo", "Tentação", "Napolitano"]
+    },
+    {
+      "id": 4,
+      "nome": "Copão 430 ml",
+      "categoria": "creme",
+      "setor": "sorvetes",
+      "categoriaFiltro": "creme",
+      "descricao": "Sorvete artesanal servido em copão de 430ml. Sabores: Blue ice, Chocolate, Coco, Flocos, Milho verde, Morango, Napolitano, Passas ao rum",
+      "preco": "8,00",
+      "imagem": "assets/sabores/copao.png",
+      "sabores": ["Blue ice", "Chocolate", "Coco", "Flocos", "Milho verde", "Morango", "Napolitano", "Passas ao rum"]
+    },
+    {
+      "id": 5,
+      "nome": "Sundae Plus",
+      "categoria": "creme",
+      "setor": "sorvetes",
+      "categoriaFiltro": "creme",
+      "descricao": "Sorvete cremoso com coberturas deliciosas e toppings especiais. Sabores: Chocolate, Morango",
+      "preco": "8,00",
+      "imagem": "assets/sabores/sundae.jpg",
+      "sabores": ["Chocolate", "Morango"]
+    },
+    {
+      "id": 6,
+      "nome": "Sorvete Diet",
+      "categoria": "creme",
+      "setor": "sorvetes",
+      "categoriaFiltro": "creme",
+      "descricao": "Delicioso e sem açúcar, para quem busca uma opção mais leve",
+      "preco": "0,00",
+      "imagem": "assets/sabores/sorvete-diet.jpg",
+      "sabores": []
+    },
+    {
+      "id": 7,
+      "nome": "Açaí 120 ml",
+      "categoria": "fruta",
+      "setor": "açaí",
+      "categoriaFiltro": "fruta vegano",
+      "descricao": "Açaí cremoso e refrescante. Sabores: Açaí com trufa de leitinho, Açaí com trufa de avelã, Açaí puro",
+      "preco": "8,00",
+      "imagem": "assets/sabores/acai-e-sorbets.jpg",
+      "sabores": ["Açaí com trufa de leitinho", "Açaí com trufa de avelã", "Açaí puro"]
+    },
+    {
+      "id": 8,
+      "nome": "Potes 1,5L (Recheados)",
+      "categoria": "creme",
+      "setor": "potes",
+      "categoriaFiltro": "creme",
+      "descricao": "Potes familiares com 1,5 litros de sorvete artesanal recheado. Sabores: Bombom de avelã, Brigadeiro, Chocolate, Crocante, Churros, Espanhola, Flocos, Morango, Morango trufado, Napolitano, Ninho trufado, Passas ao rum, Pistache, Prestígio, Torta de limão",
+      "preco": "29,50",
+      "imagem": "assets/sabores/potes-1-5l.jpg",
+      "sabores": ["Bombom de avelã", "Brigadeiro", "Chocolate", "Crocante", "Churros", "Espanhola", "Flocos", "Morango", "Morango trufado", "Napolitano", "Ninho trufado", "Passas ao rum", "Pistache", "Prestígio", "Torta de limão"]
+    },
+    {
+      "id": 9,
+      "nome": "Caixa 10L",
+      "categoria": "creme",
+      "setor": "potes",
+      "categoriaFiltro": "creme",
+      "descricao": "Caixa grande com 10 litros, ideal para eventos e festas",
+      "preco": "0,00",
+      "imagem": "assets/sabores/caixa-10l.jpg",
+      "sabores": []
+    },
+    {
+      "id": 10,
+      "nome": "Copo Mirim 200 ml (Recheado)",
+      "categoria": "creme",
+      "setor": "especiais",
+      "categoriaFiltro": "creme",
+      "descricao": "Copo pequeno com 200ml de sorvete recheado. Sabores: Brigadeiro, Morango, Prestígio, Romeu e Julieta",
+      "preco": "4,50",
+      "imagem": "assets/sabores/copinho.jpg",
+      "sabores": ["Brigadeiro", "Morango", "Prestígio", "Romeu e Julieta"]
+    },
+    {
+      "id": 11,
+      "nome": "Bolinhos",
+      "categoria": "creme",
+      "setor": "especiais",
+      "categoriaFiltro": "creme",
+      "descricao": "Deliciosos bolinhos de sorvete, perfeitos para o lanche",
+      "preco": "0,00",
+      "imagem": "assets/sabores/bolinhos.jpg",
+      "sabores": []
+    },
+    {
+      "id": 12,
+      "nome": "Esfirras",
+      "categoria": "creme",
+      "setor": "especiais",
+      "categoriaFiltro": "creme",
+      "descricao": "Esfirras recheadas com sorvete artesanal",
+      "preco": "0,00",
+      "imagem": "assets/sabores/esfirras.jpg",
+      "sabores": []
+    },
+    {
+      "id": 13,
+      "nome": "Coberturas 1,3kg",
+      "categoria": "creme",
+      "setor": "coberturas",
+      "categoriaFiltro": "creme",
+      "descricao": "Coberturas deliciosas em embalagem de 1,3kg. Sabores: Chocolate (R$ 16,00), Morango (R$ 14,00), Caramelo (R$ 14,00)",
+      "preco": "14,00",
+      "imagem": "assets/sabores/cobertura1300g.png",
+      "sabores": ["Chocolate (R$ 16,00)", "Morango (R$ 14,00)", "Caramelo (R$ 14,00)"]
+    },
+    {
+      "id": 14,
+      "nome": "Coberturas 250g",
+      "categoria": "creme",
+      "setor": "coberturas",
+      "categoriaFiltro": "creme",
+      "descricao": "Coberturas deliciosas em embalagem de 250g. Sabores: Chocolate (R$ 4,50), Morango (R$ 4,20), Caramelo (R$ 4,20)",
+      "preco": "4,20",
+      "imagem": "assets/sabores/cobertura270g.png",
+      "sabores": ["Chocolate (R$ 4,50)", "Morango (R$ 4,20)", "Caramelo (R$ 4,20)"]
+    }
+  ]
+}

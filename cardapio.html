@@ -68,9 +68,14 @@
                         <li><a href="contato.html" class="nav-link">Contato</a></li>
                     </ul>
                 </nav>
-                <button class="btn-cta-header" id="btnPedirAgora" aria-label="Fazer pedido">
-                    Peça Agora
-                </button>
+                <div class="header-buttons">
+                    <button class="btn-cta-header" id="btnPedirAgora" aria-label="Fazer pedido">
+                        Peça Agora
+                    </button>
+                    <a href="admin.html" class="btn-admin-header" aria-label="Painel Administrativo" title="Painel Administrativo">
+                        🔐 Admin
+                    </a>
+                </div>
             </div>
         </div>
     </header>
@@ -406,6 +411,14 @@
                 <div class="form-group">
                     <label for="telefone">Telefone *</label>
                     <input type="tel" id="telefone" name="telefone" required aria-required="true" placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="formaEntrega">Forma de Entrega *</label>
+                    <select id="formaEntrega" name="formaEntrega" required aria-required="true">
+                        <option value="">Selecione...</option>
+                        <option value="retirada">Retirada</option>
+                        <option value="entrega">Entrega</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="endereco">Endereço Completo *</label>

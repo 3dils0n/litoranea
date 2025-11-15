@@ -1,0 +1,389 @@
+{
+  "taxaEntrega": 16.00,
+  "itens": [
+    {
+      "id": 1,
+      "produto": "Picolés de Fruta",
+      "sabor": "Açaí",
+      "preco": "2,50"
+    },
+    {
+      "id": 2,
+      "produto": "Picolés de Fruta",
+      "sabor": "Limão",
+      "preco": "2,50"
+    },
+    {
+      "id": 3,
+      "produto": "Picolés de Fruta",
+      "sabor": "Maracujá",
+      "preco": "2,50"
+    },
+    {
+      "id": 4,
+      "produto": "Picolés de Fruta",
+      "sabor": "Uva",
+      "preco": "2,50"
+    },
+    {
+      "id": 5,
+      "produto": "Picolés de Fruta",
+      "sabor": "Melancia",
+      "preco": "2,50"
+    },
+    {
+      "id": 6,
+      "produto": "Picolés de Fruta",
+      "sabor": "Groselha",
+      "preco": "2,50"
+    },
+    {
+      "id": 7,
+      "produto": "Picolés de Fruta",
+      "sabor": "Goiaba",
+      "preco": "2,50"
+    },
+    {
+      "id": 8,
+      "produto": "Picolés de Fruta",
+      "sabor": "Tangerina",
+      "preco": "2,50"
+    },
+    {
+      "id": 9,
+      "produto": "Picolés ao Leite",
+      "sabor": "Abacaxi",
+      "preco": "4,00"
+    },
+    {
+      "id": 10,
+      "produto": "Picolés ao Leite",
+      "sabor": "Chocolate",
+      "preco": "4,00"
+    },
+    {
+      "id": 11,
+      "produto": "Picolés ao Leite",
+      "sabor": "Coco",
+      "preco": "4,00"
+    },
+    {
+      "id": 12,
+      "produto": "Picolés ao Leite",
+      "sabor": "Espanhola",
+      "preco": "4,00"
+    },
+    {
+      "id": 13,
+      "produto": "Picolés ao Leite",
+      "sabor": "Leite condensado",
+      "preco": "4,00"
+    },
+    {
+      "id": 14,
+      "produto": "Picolés ao Leite",
+      "sabor": "Limão suíço",
+      "preco": "4,00"
+    },
+    {
+      "id": 15,
+      "produto": "Picolés ao Leite",
+      "sabor": "Milho verde",
+      "preco": "4,00"
+    },
+    {
+      "id": 16,
+      "produto": "Picolés ao Leite",
+      "sabor": "Morango",
+      "preco": "4,00"
+    },
+    {
+      "id": 17,
+      "produto": "Picolés ao Leite",
+      "sabor": "Sensação",
+      "preco": "4,00"
+    },
+    {
+      "id": 18,
+      "produto": "Picolés Especiais",
+      "sabor": "Brigadeiro",
+      "preco": "8,00"
+    },
+    {
+      "id": 19,
+      "produto": "Picolés Especiais",
+      "sabor": "Crocante",
+      "preco": "8,00"
+    },
+    {
+      "id": 20,
+      "produto": "Picolés Especiais",
+      "sabor": "Skimo",
+      "preco": "8,00"
+    },
+    {
+      "id": 21,
+      "produto": "Picolés Especiais",
+      "sabor": "Tentação",
+      "preco": "8,00"
+    },
+    {
+      "id": 22,
+      "produto": "Picolés Especiais",
+      "sabor": "Napolitano",
+      "preco": "8,00"
+    },
+    {
+      "id": 23,
+      "produto": "Açaí 120 ml",
+      "sabor": "Açaí com trufa de leitinho",
+      "preco": "8,00"
+    },
+    {
+      "id": 24,
+      "produto": "Açaí 120 ml",
+      "sabor": "Açaí com trufa de avelã",
+      "preco": "8,00"
+    },
+    {
+      "id": 25,
+      "produto": "Açaí 120 ml",
+      "sabor": "Açaí puro",
+      "preco": "8,00"
+    },
+    {
+      "id": 26,
+      "produto": "Sundae Plus",
+      "sabor": "Chocolate",
+      "preco": "8,00"
+    },
+    {
+      "id": 27,
+      "produto": "Sundae Plus",
+      "sabor": "Morango",
+      "preco": "8,00"
+    },
+    {
+      "id": 28,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Bombom de avelã",
+      "preco": "29,50"
+    },
+    {
+      "id": 29,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Brigadeiro",
+      "preco": "29,50"
+    },
+    {
+      "id": 30,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Chocolate",
+      "preco": "29,50"
+    },
+    {
+      "id": 31,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Crocante",
+      "preco": "29,50"
+    },
+    {
+      "id": 32,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Churros",
+      "preco": "29,50"
+    },
+    {
+      "id": 33,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Espanhola",
+      "preco": "29,50"
+    },
+    {
+      "id": 34,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Flocos",
+      "preco": "29,50"
+    },
+    {
+      "id": 35,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Morango",
+      "preco": "29,50"
+    },
+    {
+      "id": 36,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Morango trufado",
+      "preco": "29,50"
+    },
+    {
+      "id": 37,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Napolitano",
+      "preco": "29,50"
+    },
+    {
+      "id": 38,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Ninho trufado",
+      "preco": "29,50"
+    },
+    {
+      "id": 39,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Passas ao rum",
+      "preco": "29,50"
+    },
+    {
+      "id": 40,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Pistache",
+      "preco": "29,50"
+    },
+    {
+      "id": 41,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Prestígio",
+      "preco": "29,50"
+    },
+    {
+      "id": 42,
+      "produto": "Potes 1,5L (Recheados)",
+      "sabor": "Torta de limão",
+      "preco": "29,50"
+    },
+    {
+      "id": 43,
+      "produto": "Copão 430 ml",
+      "sabor": "Blue ice",
+      "preco": "8,00"
+    },
+    {
+      "id": 44,
+      "produto": "Copão 430 ml",
+      "sabor": "Chocolate",
+      "preco": "8,00"
+    },
+    {
+      "id": 45,
+      "produto": "Copão 430 ml",
+      "sabor": "Coco",
+      "preco": "8,00"
+    },
+    {
+      "id": 46,
+      "produto": "Copão 430 ml",
+      "sabor": "Flocos",
+      "preco": "8,00"
+    },
+    {
+      "id": 47,
+      "produto": "Copão 430 ml",
+      "sabor": "Milho verde",
+      "preco": "8,00"
+    },
+    {
+      "id": 48,
+      "produto": "Copão 430 ml",
+      "sabor": "Morango",
+      "preco": "8,00"
+    },
+    {
+      "id": 49,
+      "produto": "Copão 430 ml",
+      "sabor": "Napolitano",
+      "preco": "8,00"
+    },
+    {
+      "id": 50,
+      "produto": "Copão 430 ml",
+      "sabor": "Passas ao rum",
+      "preco": "8,00"
+    },
+    {
+      "id": 51,
+      "produto": "Copo Mirim 200 ml (Recheado)",
+      "sabor": "Brigadeiro",
+      "preco": "4,50"
+    },
+    {
+      "id": 52,
+      "produto": "Copo Mirim 200 ml (Recheado)",
+      "sabor": "Morango",
+      "preco": "4,50"
+    },
+    {
+      "id": 53,
+      "produto": "Copo Mirim 200 ml (Recheado)",
+      "sabor": "Prestígio",
+      "preco": "4,50"
+    },
+    {
+      "id": 54,
+      "produto": "Copo Mirim 200 ml (Recheado)",
+      "sabor": "Romeu e Julieta",
+      "preco": "4,50"
+    },
+    {
+      "id": 55,
+      "produto": "Coberturas 1,3kg",
+      "sabor": "Chocolate",
+      "preco": "16,00"
+    },
+    {
+      "id": 56,
+      "produto": "Coberturas 1,3kg",
+      "sabor": "Morango",
+      "preco": "14,00"
+    },
+    {
+      "id": 57,
+      "produto": "Coberturas 1,3kg",
+      "sabor": "Caramelo",
+      "preco": "14,00"
+    },
+    {
+      "id": 58,
+      "produto": "Coberturas 250g",
+      "sabor": "Chocolate",
+      "preco": "4,50"
+    },
+    {
+      "id": 59,
+      "produto": "Coberturas 250g",
+      "sabor": "Morango",
+      "preco": "4,20"
+    },
+    {
+      "id": 60,
+      "produto": "Coberturas 250g",
+      "sabor": "Caramelo",
+      "preco": "4,20"
+    },
+    {
+      "id": 61,
+      "produto": "Sorvete Diet",
+      "sabor": "Sem sabor específico",
+      "preco": "0,00"
+    },
+    {
+      "id": 62,
+      "produto": "Caixa 10L",
+      "sabor": "Sem sabor específico",
+      "preco": "0,00"
+    },
+    {
+      "id": 63,
+      "produto": "Bolinhos",
+      "sabor": "Sem sabor específico",
+      "preco": "0,00"
+    },
+    {
+      "id": 64,
+      "produto": "Esfirras",
+      "sabor": "Sem sabor específico",
+      "preco": "0,00"
+    }
+  ]
+}

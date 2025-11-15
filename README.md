@@ -1,6 +1,6 @@
 # Sorvetes Litorâneo - Site Responsivo
 
-Site estático responsivo para a sorveteria "Sorvetes Litorâneo", desenvolvido com HTML5, CSS3 e JavaScript puro.
+Site estático responsivo para a sorveteria "Sorvetes Litorâneo", desenvolvido com HTML5, CSS3 e JavaScript puro, incluindo painel administrativo completo e sistema de pedidos integrado.
 
 ## 📁 Estrutura do Projeto
 
@@ -10,15 +10,22 @@ Site_litoranea/
 ├── cardapio.html       # Cardápio completo com filtros
 ├── sobre.html          # Página sobre a empresa
 ├── contato.html        # Contato e localização
+├── admin.html          # Painel administrativo
 ├── styles.css          # Estilos CSS (mobile-first)
-├── scripts.js          # JavaScript (funcionalidades)
-├── README.md           # Este arquivo
+├── admin.css           # Estilos do painel admin
+├── scripts.js          # JavaScript (funcionalidades principais)
+├── admin.js            # JavaScript do painel admin
+├── destaques.json      # Dados dos destaques (gerenciado pelo admin)
+├── cardapio.json       # Dados do cardápio (gerenciado pelo admin)
+├── sobre.json          # Texto "Sobre Nós" (gerenciado pelo admin)
+├── config-pedido.json  # Configurações de pedidos (taxa, itens, preços)
 └── assets/
     ├── logo.png        # Logo da empresa
     ├── hero-1.jpg      # Imagem principal do hero
+    ├── praia.jpg       # Imagem da seção sobre
     └── sabores/        # Imagens dos produtos
-        ├── picolés de fruta.jpg
-        ├── picolés ao leite.jpg
+        ├── picoles-de-fruta.jpg
+        ├── picoles-ao-leite.jpg
         └── ... (outras imagens)
 ```
 
@@ -26,60 +33,87 @@ Site_litoranea/
 
 ### 1. Informações Já Preenchidas ✅
 
-As seguintes informações foram preenchidas com base no Instagram:
-
 - **Telefone**: (13) 3426-1517 ✅
 - **WhatsApp**: 551334261517 ✅
-- **Cidade**: Guarujá, SP ✅
+- **Endereço**: R. Maria Píres, 174 - Savoy, Itanhaém - SP ✅
 - **Ano de fundação**: 2010 ✅
 - **Instagram**: https://www.instagram.com/sorveteslitoraneo/ ✅
-- **Link do Instagram**: Adicionado no footer de todas as páginas ✅
+- **iFood**: Link configurado ✅
 
-### 2. Informações que Precisam ser Verificadas no Instagram
+### 2. Painel Administrativo 🔐
 
-#### **Preços dos Produtos** ⚠️
-- Todas as linhas com `R$ [INSERIR]` nos arquivos `index.html` e `cardapio.html`
-- Verifique os preços no Instagram ou entre em contato via WhatsApp
+O site inclui um painel administrativo completo que funciona **100% offline** usando apenas HTML, CSS e JavaScript puro.
 
-#### **Endereço Completo** ⚠️
-- **contato.html**: Atualmente mostra "Guarujá, SP - Baixada Santista"
-- Verifique o endereço completo no perfil do Instagram e atualize
-- Atualize também o iframe do Google Maps (linha ~110) com o endereço correto
+#### Acesso ao Painel
 
-#### **Horário de Funcionamento** ⚠️
-- **contato.html**: Atualmente mostra "Segunda a Domingo: 10h às 22h" (genérico)
-- Verifique os horários reais no Instagram e atualize se necessário
+1. Abra o arquivo `admin.html` no navegador
+2. **Usuário:** `Admin`
+3. **Senha:** `MeMiFabi`
+4. Clique em "Entrar"
 
-#### **URL do Site** (quando tiver)
-- **index.html** (Schema.org): Atualmente aponta para o Instagram
-- Quando o site estiver publicado, atualize com a URL real
+#### Funcionalidades do Painel
 
-#### **scripts.js**
-- **Linha 4**: `PHONE_WHATSAPP` já está configurado como `'551334261517'`
-- Se necessário alterar, modifique a constante no início do arquivo
+**Gerenciar Destaques:**
+- Adicionar, editar, excluir e reordenar produtos em destaque na página inicial
+- Os dados são salvos em `destaques.json`
+- Sistema de drag and drop para reordenar
 
-### 2. Atualizar Mapa do Google Maps
+**Gerenciar Cardápio:**
+- Adicionar, editar e excluir produtos do cardápio
+- Organizar por setores (Picolés, Sorvetes, Açaí, Potes, Especiais, Coberturas)
+- Os dados são salvos em `cardapio.json`
 
-1. Acesse [Google Maps](https://www.google.com/maps)
-2. Busque o endereço da sorveteria
-3. Clique em "Compartilhar" → "Incorporar um mapa"
-4. Copie o código do iframe
-5. Substitua o iframe em `contato.html` (linha ~80)
+**Editar "Sobre Nós":**
+- Editar o texto completo da história da empresa
+- Suporte a quebras de linha e parágrafos
+- Os dados são salvos em `sobre.json`
 
-### 3. Otimizar Imagens (Opcional mas Recomendado)
+**Configurar Pedidos:**
+- Gerenciar taxa de entrega
+- Configurar produtos, sabores e preços para o sistema de pedidos
+- Adicionar, editar e excluir itens do pedido
+- Os dados são salvos em `config-pedido.json`
 
-Para melhor performance, converta as imagens para WebP:
+#### Sistema de Importação/Exportação
 
-```bash
-# Usando cwebp (Google)
-cwebp assets/hero-1.jpg -o assets/hero-1.webp -q 80
+Como o painel funciona offline (sem servidor), ele usa:
 
-# Ou use ferramentas online como:
-# - https://squoosh.app/
-# - https://cloudconvert.com/
-```
+1. **localStorage do navegador** - Dados são salvos automaticamente no navegador
+2. **Importar JSONs** - Botão "📥 Importar JSONs" para carregar os arquivos JSON existentes
+3. **Exportar JSONs** - Botão "📤 Exportar JSONs" para baixar os arquivos atualizados
 
-Depois, atualize as tags `<picture>` nos HTMLs para incluir WebP como source.
+**Fluxo de trabalho:**
+1. Primeira vez: Clique em "📥 Importar JSONs" e selecione os arquivos `destaques.json`, `cardapio.json`, `sobre.json` e `config-pedido.json`
+2. Edite o que precisar - tudo é salvo automaticamente no localStorage
+3. Quando quiser atualizar os arquivos no servidor: Clique em "📤 Exportar JSONs" e faça upload dos arquivos baixados
+
+**Nota:** O painel detecta automaticamente se está sendo usado via `file://` (aberto diretamente) ou via servidor HTTP, e adapta o comportamento automaticamente.
+
+### 3. Sistema de Pedidos 🛒
+
+O site possui um sistema completo de pedidos integrado:
+
+**Funcionalidades:**
+- Modal de pedidos acessível de qualquer página
+- Seleção de produtos e sabores específicos
+- Cálculo automático de totais
+- Taxa de entrega configurável
+- Opção de retirada ou entrega
+- Geração automática de mensagem para WhatsApp
+- Integração com iFood
+
+**Como funciona:**
+1. Cliente clica em "Peça Agora" ou "Adicionar" em um produto
+2. Modal de pedidos abre com formulário completo
+3. Cliente seleciona produtos, sabores e quantidades
+4. Sistema calcula total automaticamente (incluindo taxa de entrega se aplicável)
+5. Cliente preenche dados de entrega/retirada
+6. Ao enviar, abre WhatsApp com mensagem formatada do pedido
+
+**Configuração:**
+- Taxa de entrega e itens são gerenciados pelo painel admin
+- Dados salvos em `config-pedido.json`
+- Sistema carrega automaticamente do localStorage ou JSON
 
 ### 4. Publicar o Site
 
@@ -97,9 +131,9 @@ Depois, atualize as tags `<picture>` nos HTMLs para incluir WebP como source.
 
 1. Acesse [Netlify](https://www.netlify.com/)
 2. Faça login ou crie uma conta gratuita
-3. Na página inicial, arraste e solte a pasta `Site_litoranea` inteira na área "Want to deploy a new site without connecting to Git? Drag and drop your site output folder here"
+3. Na página inicial, arraste e solte a pasta `Site_litoranea` inteira
 4. Aguarde o deploy (pode levar alguns minutos)
-5. O Netlify gerará uma URL automática (ex: `sorveteslitoraneo-123abc.netlify.app`)
+5. O Netlify gerará uma URL automática
 6. Você pode personalizar o nome do site em: Site settings → Change site name
 
 **Método 2: Deploy via GitHub (Recomendado para Atualizações Automáticas)**
@@ -116,11 +150,6 @@ Depois, atualize as tags `<picture>` nos HTMLs para incluir WebP como source.
 8. Clique em "Deploy site"
 9. O site será publicado automaticamente e atualizado a cada push no GitHub
 
-**Configurações Importantes:**
-- O arquivo `netlify.toml` já está configurado
-- O arquivo `_redirects` garante que todas as rotas funcionem corretamente
-- Para personalizar o domínio: Site settings → Domain management → Add custom domain
-
 #### **Opção 3: Servidor Web Tradicional**
 
 1. Faça upload de todos os arquivos via FTP
@@ -129,28 +158,51 @@ Depois, atualize as tags `<picture>` nos HTMLs para incluir WebP como source.
 
 ## ✨ Funcionalidades
 
+### Site Principal
+
 - ✅ Design responsivo (mobile-first)
 - ✅ Header fixo com menu colapsável em mobile
 - ✅ Hero section com CTA duplo
 - ✅ Cards de sabores com imagens
 - ✅ Filtros por categoria (creme, fruta, vegano)
 - ✅ Busca por nome de sabor
-- ✅ Modal de pedidos
-- ✅ Integração com WhatsApp
+- ✅ **Sistema completo de pedidos com modal**
+- ✅ **Seleção de produtos e sabores específicos**
+- ✅ **Cálculo automático de totais e taxa de entrega**
+- ✅ Integração com WhatsApp (mensagem formatada)
+- ✅ Integração com iFood
 - ✅ Formulário de contato
 - ✅ Mapa Google Maps
 - ✅ SEO otimizado (meta tags, schema.org)
 - ✅ Acessibilidade (ARIA, contraste, navegação por teclado)
 - ✅ Lazy loading de imagens
+- ✅ Conteúdo dinâmico carregado de JSONs
+- ✅ Atualização automática de conteúdo (localStorage + JSON)
+
+### Painel Administrativo
+
+- ✅ Autenticação por senha
+- ✅ Gerenciamento completo de destaques
+- ✅ Gerenciamento completo de cardápio
+- ✅ Edição de texto "Sobre Nós"
+- ✅ **Configuração completa de pedidos (taxa, itens, preços)**
+- ✅ Sistema de importação/exportação de JSONs
+- ✅ Armazenamento local (localStorage)
+- ✅ Funciona 100% offline
+- ✅ Interface moderna e responsiva
+- ✅ Drag and drop para reordenar destaques
+- ✅ Pré-visualização de imagens
+- ✅ Validação de formulários
+- ✅ Notificações de sucesso/erro
 
 ## 🎨 Paleta de Cores
 
-- **Azul Escuro**: `#1e3a5f`
-- **Azul Médio**: `#2d5a87`
-- **Azul Claro**: `#4a90c2`
-- **Azul Muito Claro**: `#e8f4f8`
+- **Marrom/Rosa**: `#ff8fa3` (cor principal)
+- **Marrom Escuro**: `#d65a7a`
 - **Branco**: `#ffffff`
-- **Creme**: `#faf8f3`
+- **Bege**: `#fff5f8`
+- **Texto**: `#2a2a2a`
+- **Texto Claro**: `#666666`
 
 ## 📱 Breakpoints Responsivos
 
@@ -163,26 +215,29 @@ Depois, atualize as tags `<picture>` nos HTMLs para incluir WebP como source.
 - HTML5 semântico
 - CSS3 (Grid, Flexbox, Custom Properties)
 - JavaScript ES6+ (sem dependências)
-- Google Fonts (Poppins + Inter)
+- Google Fonts (Playfair Display + Lato)
 - Schema.org (microdados)
+- localStorage (para painel admin offline)
+- Fetch API (para carregar JSONs)
 
 ## 📝 Checklist Antes de Publicar
 
 - [x] Telefone e WhatsApp preenchidos
 - [x] Link do Instagram adicionado
-- [x] Cidade e estado preenchidos
+- [x] Endereço completo preenchido
 - [x] Ano de fundação preenchido
-- [ ] **Verificar e preencher todos os preços** (consultar Instagram)
-- [ ] **Atualizar endereço completo** (verificar no Instagram)
-- [ ] **Atualizar iframe do Google Maps** com endereço correto
-- [ ] **Verificar horário de funcionamento** (confirmar no Instagram)
-- [ ] Testar formulário de pedidos (WhatsApp)
-- [ ] Testar em diferentes dispositivos
-- [ ] Verificar links de navegação
-- [ ] Otimizar imagens (recomendado)
-- [ ] Testar acessibilidade (navegação por teclado)
-- [ ] Verificar meta tags e SEO
-- [ ] Atualizar URL do site no Schema.org quando publicado
+- [x] Painel administrativo configurado
+- [x] Sistema de importação/exportação funcionando
+- [x] Sistema de pedidos implementado
+- [x] Configuração de pedidos funcionando
+- [x] Testar formulário de pedidos (WhatsApp)
+- [x] Testar em diferentes dispositivos
+- [x] Verificar links de navegação
+- [x] Otimizar imagens (recomendado)
+- [x] Testar acessibilidade (navegação por teclado)
+- [x] Verificar meta tags e SEO
+- [x] Testar painel admin (importar/exportar JSONs)
+- [x] Testar sistema de pedidos completo
 
 ## 🐛 Solução de Problemas
 
@@ -202,12 +257,35 @@ Depois, atualize as tags `<picture>` nos HTMLs para incluir WebP como source.
 - Verifique a conexão com a internet
 - Atualize o código do iframe do Google Maps
 
+### Painel admin não carrega dados
+- Se estiver usando `file://`, use os botões "📥 Importar JSONs" para carregar os arquivos
+- Verifique se os arquivos JSON estão na raiz do projeto
+- Abra o console do navegador (F12) para ver mensagens de debug
+
+### Erro ao salvar no painel admin
+- Os dados são salvos automaticamente no localStorage
+- Use o botão "📤 Exportar JSONs" para baixar os arquivos atualizados
+- Faça upload manual dos arquivos JSON no servidor
+
+### Select de itens não carrega no modal de pedidos
+- Verifique se o `config-pedido.json` está na raiz do projeto
+- Se estiver usando `file://`, importe o JSON no painel admin primeiro
+- O sistema carrega automaticamente do localStorage ou JSON
+- Abra o console do navegador (F12) para ver mensagens de debug
+
+### Pedidos não calculam corretamente
+- Verifique se a taxa de entrega está configurada no painel admin
+- Certifique-se de que os preços dos itens estão corretos
+- O sistema usa valores do `config-pedido.json` ou localStorage
+
 ## 📞 Suporte
 
 Para dúvidas ou problemas, verifique:
 1. Console do navegador (F12)
 2. Estrutura de arquivos
 3. Caminhos relativos dos assets
+4. Arquivos JSON na raiz do projeto
+5. localStorage do navegador (F12 → Application → Local Storage)
 
 ## 📄 Licença
 
@@ -215,6 +293,4 @@ Este projeto foi desenvolvido para Sorvetes Litorâneo.
 
 ---
 
-**Desenvolvido com ❤️ para Sorvetes Litorâneo**
-
-"# litoranea" 
+**Desenvolvido com ❤️ para Sorvetes Litorâneo** 🍦

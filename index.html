@@ -67,9 +67,14 @@
                         <li><a href="contato.html" class="nav-link">Contato</a></li>
                     </ul>
                 </nav>
-                <button class="btn-cta-header" id="btnPedirAgora" aria-label="Fazer pedido">
-                    Peça Agora
-                </button>
+                <div class="header-buttons">
+                    <button class="btn-cta-header" id="btnPedirAgora" aria-label="Fazer pedido">
+                        Peça Agora
+                    </button>
+                    <a href="admin.html" class="btn-admin-header" aria-label="Painel Administrativo" title="Painel Administrativo">
+                        🔐 Admin
+                    </a>
+                </div>
             </div>
         </div>
     </header>
@@ -97,7 +102,9 @@
     <section class="destaques" id="destaques">
         <div class="container">
             <h2 class="section-title">Nossos Destaques</h2>
-            <div class="cards-grid">
+            <div id="destaquesContainer" class="cards-grid">
+                <!-- Destaques serão carregados dinamicamente aqui -->
+                <!-- Fallback: conteúdo estático caso JSON não carregue -->
                 <article class="card-sabor">
                     <picture class="card-image">
                         <source srcset="assets/sabores/picoles-de-fruta.jpg" type="image/jpeg">
@@ -156,8 +163,8 @@
                     <a href="sobre.html" class="btn btn-secondary">Saiba Mais</a>
                 </div>
                 <picture class="sobre-image">
-                    <source srcset="assets/sabores/copinho.jpg" type="image/jpeg">
-                    <img src="assets/sabores/copinho.jpg" alt="Sorvete em copinho artesanal" loading="lazy">
+                    <source srcset="assets/praia.jpg" type="image/jpeg">
+                    <img src="assets/praia.jpg" alt="Praia do litoral" loading="lazy">
                 </picture>
             </div>
         </div>
@@ -211,6 +218,14 @@
                 <div class="form-group">
                     <label for="telefone">Telefone *</label>
                     <input type="tel" id="telefone" name="telefone" required aria-required="true" placeholder="(00) 00000-0000">
+                </div>
+                <div class="form-group">
+                    <label for="formaEntrega">Forma de Entrega *</label>
+                    <select id="formaEntrega" name="formaEntrega" required aria-required="true">
+                        <option value="">Selecione...</option>
+                        <option value="retirada">Retirada</option>
+                        <option value="entrega">Entrega</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="endereco">Endereço Completo *</label>

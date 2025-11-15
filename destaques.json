@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nome": "Picolés de Fruta",
+    "descricao": "Sabores naturais e refrescantes feitos com frutas frescas. Sabores: Açaí, Limão, Maracujá, Uva, Melancia, Groselha, Goiaba, Tangerina",
+    "imagem": "assets/sabores/picoles-de-fruta.jpg",
+    "preco": "2,50"
+  },
+  {
+    "id": 2,
+    "nome": "Picolés ao Leite",
+    "descricao": "Cremosos e deliciosos, feitos com leite fresco. Sabores: Abacaxi, Chocolate, Coco, Espanhola, Leite condensado, Limão suíço, Milho verde, Morango, Sensação",
+    "imagem": "assets/sabores/picoles-ao-leite.jpg",
+    "preco": "4,00"
+  },
+  {
+    "id": 3,
+    "nome": "Açaí 120 ml",
+    "descricao": "Açaí cremoso e refrescante. Sabores: Açaí com trufa de leitinho, Açaí com trufa de avelã, Açaí puro",
+    "imagem": "assets/sabores/acai-e-sorbets.jpg",
+    "preco": "8,00"
+  }
+]

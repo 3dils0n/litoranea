@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Sorvetes Litorâneo</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>🔐 Painel Administrativo</h1>
+                <p>Sorvetes Litorâneo</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" value="Admin" required>
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" required autofocus>
+                </div>
+                <div id="loginError" class="error-message" style="display: none;"></div>
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                <a href="index.html" class="btn btn-secondary">
+                    🏠 Voltar para Home
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Painel Administrativo -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="admin-header-content">
+                <h1>Painel Administrativo</h1>
+                <div class="header-actions">
+                    <div id="fileImportExport" class="file-import-export" style="display: none;">
+                        <label for="importJSON" class="btn btn-small btn-secondary" title="Importar JSONs">
+                            📥 Importar JSONs
+                        </label>
+                        <input type="file" id="importJSON" multiple accept=".json" style="display: none;">
+                        <button id="exportJSONs" class="btn btn-small btn-secondary" title="Exportar JSONs">
+                            📤 Exportar JSONs
+                        </button>
+                    </div>
+                    <a href="index.html" class="btn btn-small btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        🏠 Voltar para Home
+                    </a>
+                    <button id="btnLogout" class="btn btn-small btn-secondary">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Wrapper para Sidebar e Main -->
+        <div class="admin-panel-wrapper">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <nav class="admin-nav">
+                    <button class="nav-item active" data-section="destaques">
+                        <span>⭐</span> Destaques
+                    </button>
+                    <button class="nav-item" data-section="cardapio">
+                        <span>📋</span> Cardápio
+                    </button>
+                    <button class="nav-item" data-section="sobre">
+                        <span>📝</span> Sobre Nós
+                    </button>
+                    <button class="nav-item" data-section="configPedido">
+                        <span>⚙️</span> Config. Pedido
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="admin-main">
+            <!-- Seção Destaques -->
+            <section id="sectionDestaques" class="admin-section active">
+                <div class="section-header">
+                    <h2>Gerenciar Destaques</h2>
+                    <button id="btnAdicionarDestaque" class="btn btn-primary">+ Adicionar Destaque</button>
+                </div>
+                
+                <div class="section-content">
+                    <div id="listaDestaques" class="cards-list">
+                        <!-- Destaques serão carregados aqui -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Cardápio -->
+            <section id="sectionCardapio" class="admin-section">
+                <div class="section-header">
+                    <h2>Gerenciar Cardápio</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button id="btnImportarCardapio" class="btn btn-secondary" style="display: none;">📥 Importar do Cardápio</button>
+                        <button id="btnAdicionarProduto" class="btn btn-primary">+ Adicionar Produto</button>
+                    </div>
+                </div>
+                
+                <div class="section-content">
+                    <div id="listaProdutos" class="cards-list">
+                        <!-- Produtos serão carregados aqui -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Configurações do Pedido -->
+            <section id="sectionConfigPedido" class="admin-section">
+                <div class="section-header">
+                    <h2>Configurações do Fazer Pedido</h2>
+                </div>
+                
+                <div class="section-content">
+                    <div class="admin-form">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--cor-marrom);">Taxa de Entrega</h3>
+                        <div class="form-group">
+                            <label for="taxaEntrega">Taxa de Entrega (R$)</label>
+                            <input type="number" id="taxaEntrega" name="taxaEntrega" step="0.01" min="0" value="16.00" required>
+                            <small style="color: var(--cor-texto-claro); display: block; margin-top: 0.5rem;">
+                                Valor cobrado quando o cliente escolhe "Entrega" como forma de entrega.
+                            </small>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; margin-bottom: 1.5rem;">
+                            <h3 style="color: var(--cor-marrom); margin: 0;">Preços dos Itens</h3>
+                            <button type="button" class="btn btn-primary" id="btnAdicionarItemPreco">+ Adicionar Item</button>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table id="tabelaPrecosItens" style="width: 100%; border-collapse: collapse; background: var(--cor-branco); border-radius: 8px; overflow: hidden;">
+                                <thead>
+                                    <tr style="background: var(--cor-marrom); color: var(--cor-branco);">
+                                        <th style="padding: 1rem; text-align: left; border-bottom: 2px solid var(--cor-marrom-escuro);">Produto</th>
+                                        <th style="padding: 1rem; text-align: left; border-bottom: 2px solid var(--cor-marrom-escuro);">Sabor</th>
+                                        <th style="padding: 1rem; text-align: right; border-bottom: 2px solid var(--cor-marrom-escuro);">Preço</th>
+                                        <th style="padding: 1rem; text-align: center; border-bottom: 2px solid var(--cor-marrom-escuro);">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyPrecosItens">
+                                    <!-- Itens serão carregados aqui -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="form-actions" style="margin-top: 2rem;">
+                            <button type="button" class="btn btn-secondary" id="btnCancelarConfigPedido">Cancelar</button>
+                            <button type="button" class="btn btn-primary" id="btnSalvarConfigPedido">Salvar Configurações</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção Sobre -->
+            <section id="sectionSobre" class="admin-section">
+                <div class="section-header">
+                    <h2>Editar Texto - Nossa História</h2>
+                </div>
+                
+                <div class="section-content">
+                    <form id="formSobre" class="admin-form">
+                        <div class="form-group">
+                            <label for="textoHistoria">Texto da História</label>
+                            <textarea id="textoHistoria" name="textoHistoria" rows="10" required></textarea>
+                            <small>Use quebras de linha para separar parágrafos.</small>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="btnCancelarSobre">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Destaque -->
+    <div id="modalDestaque" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalDestaqueTitle">Adicionar Destaque</h3>
+                <button class="modal-close" id="closeModalDestaque">&times;</button>
+            </div>
+            <form id="formDestaque" class="admin-form">
+                <input type="hidden" id="destaqueId" name="id">
+                <div class="form-group">
+                    <label for="destaqueProduto">Selecionar Produto do Cardápio *</label>
+                    <select id="destaqueProduto" name="produto" required>
+                        <option value="">-- Selecione um produto --</option>
+                    </select>
+                    <small>Selecione um produto do cardápio para destacar na página inicial</small>
+                </div>
+                <div id="previewCardProduto" class="preview-card-produto" style="display: none; margin: 1.5rem 0; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border: 2px solid var(--cor-marrom);">
+                    <h4 style="margin: 0 0 1rem 0; color: var(--cor-marrom);">Pré-visualização do Card:</h4>
+                    <div id="previewCardContent"></div>
+                </div>
+                <div class="form-group">
+                    <label for="destaqueNome">Nome do Produto *</label>
+                    <input type="text" id="destaqueNome" name="nome" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="destaqueDescricao">Descrição *</label>
+                    <textarea id="destaqueDescricao" name="descricao" rows="4" readonly required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="destaqueImagem">Caminho da Imagem *</label>
+                    <input type="text" id="destaqueImagem" name="imagem" readonly required>
+                </div>
+                <div class="form-group">
+                    <label for="destaquePreco">Preço *</label>
+                    <input type="text" id="destaquePreco" name="preco" readonly required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnCancelarDestaque">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Produto -->
+    <div id="modalProduto" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="modalProdutoTitle">Adicionar Produto</h3>
+                <button class="modal-close" id="closeModalProduto">&times;</button>
+            </div>
+            <form id="formProduto" class="admin-form">
+                <input type="hidden" id="produtoId" name="id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produtoNome">Nome do Produto *</label>
+                        <input type="text" id="produtoNome" name="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="produtoCategoria">Categoria *</label>
+                        <input type="text" id="produtoCategoria" name="categoria" placeholder="Ex: Picolés" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produtoSetor">Setor *</label>
+                        <select id="produtoSetor" name="setor" required>
+                            <option value="">Selecione...</option>
+                            <option value="picolés">Picolés</option>
+                            <option value="sorvetes">Sorvetes</option>
+                            <option value="açaí">Açaí</option>
+                            <option value="potes">Potes</option>
+                            <option value="especiais">Especiais</option>
+                            <option value="coberturas">Coberturas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="produtoCategoriaFiltro">Categoria de Filtro *</label>
+                        <select id="produtoCategoriaFiltro" name="categoriaFiltro" required>
+                            <option value="">Selecione...</option>
+                            <option value="creme">Creme</option>
+                            <option value="fruta">Fruta</option>
+                            <option value="vegano">Vegano</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="produtoDescricao">Descrição *</label>
+                    <textarea id="produtoDescricao" name="descricao" rows="4" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produtoPreco">Preço *</label>
+                        <input type="text" id="produtoPreco" name="preco" placeholder="2,50" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="produtoImagem">Caminho da Imagem *</label>
+                        <input type="text" id="produtoImagem" name="imagem" placeholder="assets/sabores/nome-imagem.jpg" value="assets/sabores/" required>
+                        <small>Gerado automaticamente baseado no nome do produto. Ou faça upload de uma nova imagem abaixo</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="produtoImagemUpload">Upload de Nova Imagem</label>
+                    <input type="file" id="produtoImagemUpload" name="imagemUpload" accept="image/*">
+                    <div style="background: #d1ecf1; border: 2px solid #0c5460; border-radius: 8px; padding: 1rem; margin-top: 0.5rem;">
+                        <p style="margin: 0 0 0.5rem 0; color: #0c5460; font-weight: bold;">ℹ️ UPLOAD DE IMAGEM:</p>
+                        <p style="margin: 0; color: #0c5460; font-size: 0.9rem;">
+                            <strong>No servidor:</strong> A imagem será salva automaticamente em <code>assets/sabores/</code> quando você salvar o produto.<br>
+                            <strong>Localmente (PC - file://):</strong> Na primeira vez, você precisará escolher a pasta do projeto (C:\Site_litoranea). Depois, as imagens serão salvas automaticamente em <code>assets/sabores/</code>.
+                        </p>
+                    </div>
+                    <div id="previewImagemProduto" class="image-preview" style="display: none; margin-top: 1rem;">
+                        <img id="previewImgProduto" src="" alt="Pré-visualização" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid var(--cor-marrom);">
+                        <button type="button" id="removerPreviewProduto" class="btn btn-small btn-danger" style="margin-top: 0.5rem;">Remover Imagem</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="produtoSabores">Sabores (um por linha) *</label>
+                    <textarea id="produtoSabores" name="sabores" rows="6" placeholder="Açaí&#10;Limão&#10;Maracujá" required></textarea>
+                    <small>Digite "Sem sabor específico" se o produto não tiver sabores variados.</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnCancelarProduto">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
+
