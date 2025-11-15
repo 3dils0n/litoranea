@@ -1266,17 +1266,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Tentar enviar por e-mail usando EmailJS
             if (typeof emailjs !== 'undefined' && emailjs.send) {
                 // Configurações do EmailJS
-                // IMPORTANTE: Configure estas variáveis após criar conta no EmailJS
-                // Veja o arquivo INSTRUCOES_EMAILJS.md para instruções detalhadas
-                const SERVICE_ID = 'YOUR_SERVICE_ID'; // Substitua pelo seu Service ID
-                const TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Substitua pelo seu Template ID
-                const PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Substitua pela sua Public Key
+                const SERVICE_ID = 'service_0hkr4br';
+                const TEMPLATE_ID = 'template_jnnoltf';
+                const PUBLIC_KEY = 'HscKZ7E0POWmwpQpU';
                 
                 // Verificar se as configurações foram feitas
                 if (SERVICE_ID === 'YOUR_SERVICE_ID' || TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
                     console.warn('⚠️ EmailJS não configurado. Usando WhatsApp como fallback.');
-                    alert('Sistema de e-mail ainda não configurado. Redirecionando para WhatsApp...');
+                    // Enviar via WhatsApp
                     enviarViaWhatsApp(nome, email, telefone, mensagem);
+                    // Limpar formulário e mostrar mensagem de sucesso
+                    formContato.reset();
+                    alert('Mensagem enviada com sucesso! Você será redirecionado para o WhatsApp.');
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalText;
                     return;
@@ -1305,8 +1306,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, function(error) {
                         console.error('❌ Erro ao enviar e-mail:', error);
                         // Fallback: enviar via WhatsApp se o e-mail falhar
-                        alert('Não foi possível enviar por e-mail. Redirecionando para WhatsApp...');
                         enviarViaWhatsApp(nome, email, telefone, mensagem);
+                        // Limpar formulário e mostrar mensagem
+                        formContato.reset();
+                        alert('Não foi possível enviar por e-mail. Você será redirecionado para o WhatsApp.');
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalText;
                     });
@@ -1314,6 +1317,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Se EmailJS não estiver disponível, usar WhatsApp como fallback
                 console.warn('EmailJS não está disponível. Usando WhatsApp como fallback.');
                 enviarViaWhatsApp(nome, email, telefone, mensagem);
+                // Limpar formulário e mostrar mensagem
+                formContato.reset();
+                alert('Mensagem enviada com sucesso! Você será redirecionado para o WhatsApp.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = originalText;
             }
