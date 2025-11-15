@@ -866,6 +866,7 @@ async function carregarDados() {
             ];
             console.log('📝 Usando dados padrão dos destaques');
             renderizarDestaques();
+            }
         }
         
         // Carregar cardápio
