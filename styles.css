@@ -1707,10 +1707,21 @@ section {
     }
     
     .btn-admin-header {
-        padding: var(--espaco-xs) var(--espaco-sm);
-        font-size: 0.8rem;
-        height: 32px;
-        min-height: 32px;
+        display: none; /* Esconder botão Admin do header no mobile */
+    }
+    
+    /* Mostrar botão Admin dentro do menu mobile */
+    .nav-admin-mobile {
+        display: block;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin-top: var(--espaco-xs);
+        padding-top: var(--espaco-xs);
+    }
+    
+    .nav-link-admin {
+        color: var(--cor-marrom) !important;
+        font-weight: 600 !important;
+        border-bottom: 2px solid var(--cor-marrom) !important;
     }
     
     .hero {
@@ -1735,11 +1746,16 @@ section {
         display: flex;
         position: static;
         flex-direction: row;
-        transform: none;
-        box-shadow: none;
-        padding: 0;
-        gap: var(--espaco-md);
-        align-items: center;
+    }
+    
+    /* Esconder botão Admin do menu no desktop */
+    .nav-admin-mobile {
+        display: none;
+    }
+    
+    /* Mostrar botão Admin no header no desktop */
+    .btn-admin-header {
+        display: inline-flex;
     }
     
     .nav-link {
