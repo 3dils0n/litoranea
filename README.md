@@ -278,6 +278,120 @@ O site possui um sistema completo de pedidos integrado:
 - Certifique-se de que os preços dos itens estão corretos
 - O sistema usa valores do `config-pedido.json` ou localStorage
 
+### Formulário de contato não envia e-mail
+- Verifique se o EmailJS está configurado corretamente (veja seção abaixo)
+- Confirme que as chaves (Service ID, Template ID, Public Key) estão corretas em `scripts.js`
+- Se não estiver configurado, o sistema usa WhatsApp como fallback
+
+## 📧 Configuração do Envio de E-mail (EmailJS)
+
+O formulário de contato está configurado para enviar e-mails para `adm@sorveteslitoraneo.com.br` usando o serviço gratuito EmailJS.
+
+### 🔧 Passo a Passo para Configuração
+
+#### 1. Criar Conta no EmailJS
+
+1. Acesse: https://www.emailjs.com
+2. Clique em "Sign Up" e crie uma conta gratuita
+3. Confirme seu e-mail
+
+#### 2. Adicionar um Serviço de E-mail
+
+1. No painel do EmailJS, vá em **Email Services**
+2. Clique em **Add New Service**
+3. Escolha seu provedor de e-mail (Gmail, Outlook, etc.)
+4. Siga as instruções para conectar sua conta
+5. **Anote o Service ID** que será gerado (ex: `service_abc123`)
+
+#### 3. Criar um Template de E-mail
+
+1. No painel, vá em **Email Templates**
+2. Clique em **Create New Template**
+3. Configure o template com:
+
+**Subject (Assunto):**
+```
+Novo Contato - Sorvetes Litorâneo
+```
+
+**Content (Conteúdo):**
+```
+📧 Nova Mensagem de Contato - Sorvetes Litorâneo
+
+Nome: {{from_name}}
+E-mail: {{from_email}}
+Telefone: {{phone}}
+
+Mensagem:
+{{message}}
+
+---
+Este e-mail foi enviado através do formulário de contato do site.
+```
+
+4. **To Email (Destinatário):** `adm@sorveteslitoraneo.com.br`
+5. **From Name:** `{{from_name}}`
+6. **From Email:** `{{from_email}}`
+7. Clique em **Save**
+8. **Anote o Template ID** que será gerado (ex: `template_xyz789`)
+
+#### 4. Obter a Public Key
+
+1. No painel, vá em **Account** → **General**
+2. Encontre a seção **API Keys**
+3. **Anote a Public Key** (ex: `abcdefghijklmnop`)
+
+#### 5. Configurar no Código
+
+Abra o arquivo `scripts.js` e localize as linhas 1271-1273:
+
+```javascript
+const SERVICE_ID = 'YOUR_SERVICE_ID'; // Substitua pelo seu Service ID
+const TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Substitua pelo seu Template ID
+const PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Substitua pela sua Public Key
+```
+
+Substitua os valores:
+- `YOUR_SERVICE_ID` → O Service ID que você anotou
+- `YOUR_TEMPLATE_ID` → O Template ID que você anotou
+- `YOUR_PUBLIC_KEY` → A Public Key que você anotou
+
+**Exemplo:**
+```javascript
+const SERVICE_ID = 'service_abc123';
+const TEMPLATE_ID = 'template_xyz789';
+const PUBLIC_KEY = 'abcdefghijklmnop';
+```
+
+#### 6. Testar
+
+1. Abra o site no navegador
+2. Vá para a página de Contato
+3. Preencha o formulário
+4. Clique em "Enviar Mensagem"
+5. Verifique se o e-mail chegou em `adm@sorveteslitoraneo.com.br`
+
+### ⚠️ Importante
+
+- O plano gratuito do EmailJS permite **200 e-mails por mês**
+- Se precisar de mais, considere o plano pago
+- O e-mail será enviado automaticamente quando o formulário for submetido
+- Se o EmailJS falhar, o sistema usa WhatsApp como fallback
+
+### 🔒 Segurança
+
+- A Public Key pode ser exposta no código (é segura para uso público)
+- NUNCA exponha sua Private Key
+- O EmailJS valida automaticamente os e-mails enviados
+
+### 📞 Suporte EmailJS
+
+Se tiver problemas:
+1. Verifique o console do navegador (F12) para erros
+2. Confirme que todas as IDs estão corretas
+3. Verifique se o template está configurado corretamente
+4. Consulte a documentação: https://www.emailjs.com/docs
+
 ## 📞 Suporte
 
 Para dúvidas ou problemas, verifique:

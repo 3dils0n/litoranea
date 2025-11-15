@@ -717,7 +717,43 @@ body {
    ============================================ */
 
 @media (max-width: 768px) {
-    .admin-panel-content {
+    .admin-header {
+        padding: var(--espaco-sm) var(--espaco-md);
+    }
+    
+    .admin-header-content {
+        flex-direction: column;
+        gap: var(--espaco-sm);
+        align-items: stretch;
+    }
+    
+    .admin-header h1 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .header-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--espaco-xs);
+    }
+    
+    .header-actions .btn,
+    .header-actions .btn-small,
+    .header-actions label.btn {
+        width: auto;
+        min-width: 120px;
+        max-width: 120px;
+        font-size: 0.75rem;
+        padding: 6px 8px;
+    }
+    
+    .file-import-export {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .admin-panel-wrapper {
         flex-direction: column;
     }
     
@@ -726,35 +762,65 @@ body {
         position: relative;
         top: 0;
         height: auto;
-        padding: var(--espaco-md) 0;
+        padding: var(--espaco-sm) 0;
+        box-shadow: 0 2px 10px var(--cor-sombra);
     }
     
     .admin-nav {
         flex-direction: row;
         overflow-x: auto;
         padding: 0 var(--espaco-sm);
+        gap: var(--espaco-xs);
+        -webkit-overflow-scrolling: touch;
     }
     
     .nav-item {
         white-space: nowrap;
         flex-shrink: 0;
+        padding: var(--espaco-xs) var(--espaco-sm);
+        font-size: 0.85rem;
+    }
+    
+    .nav-item span {
+        font-size: 1rem;
     }
     
     .admin-main {
+        margin-left: 0;
+        width: 100%;
         padding: var(--espaco-md);
+        max-width: 100%;
     }
     
     .section-header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: var(--espaco-sm);
+    }
+    
+    .section-header h2 {
+        font-size: 1.5rem;
     }
     
     .section-header .btn {
         width: 100%;
     }
     
+    .section-content {
+        padding: var(--espaco-md);
+    }
+    
     .cards-list {
         grid-template-columns: 1fr;
+        gap: var(--espaco-md);
+    }
+    
+    .card-item {
+        padding: var(--espaco-sm);
+    }
+    
+    .card-item-title {
+        font-size: 1.1rem;
     }
     
     .form-row {
@@ -763,20 +829,115 @@ body {
     
     .form-actions {
         flex-direction: column;
+        gap: var(--espaco-sm);
     }
     
     .form-actions .btn {
         width: 100%;
     }
     
+    .admin-form {
+        padding: 0;
+    }
+    
+    .admin-form .form-group {
+        margin-bottom: var(--espaco-md);
+    }
+    
     .modal-content {
         padding: var(--espaco-md);
+        margin: var(--espaco-sm);
+        max-width: calc(100% - 2rem);
+    }
+    
+    .modal-large {
+        max-width: calc(100% - 2rem);
     }
     
     .toast {
         left: var(--espaco-md);
         right: var(--espaco-md);
         min-width: auto;
+        font-size: 0.9rem;
+    }
+    
+    /* Tabelas responsivas */
+    .section-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .section-content table thead,
+    .section-content table tbody,
+    .section-content table tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    
+    .section-content table th,
+    .section-content table td {
+        padding: var(--espaco-xs);
+        font-size: 0.85rem;
+        word-wrap: break-word;
+    }
+}
+
+/* ============================================
+   RESPONSIVIDADE - TELAS MUITO PEQUENAS
+   ============================================ */
+
+@media (max-width: 480px) {
+    .admin-header {
+        padding: var(--espaco-xs) var(--espaco-sm);
+    }
+    
+    .admin-header h1 {
+        font-size: 1.1rem;
+    }
+    
+    .header-actions .btn,
+    .header-actions .btn-small,
+    .header-actions label.btn {
+        min-width: 100px;
+        max-width: 100px;
+        font-size: 0.7rem;
+        padding: 5px 6px;
+    }
+    
+    .admin-main {
+        padding: var(--espaco-sm);
+    }
+    
+    .section-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .section-content {
+        padding: var(--espaco-sm);
+    }
+    
+    .card-item {
+        padding: var(--espaco-xs);
+    }
+    
+    .card-item-title {
+        font-size: 1rem;
+    }
+    
+    .modal-content {
+        padding: var(--espaco-sm);
+        margin: var(--espaco-xs);
+        max-width: calc(100% - 1rem);
+    }
+    
+    .login-container {
+        padding: var(--espaco-md);
+    }
+    
+    .login-header h1 {
+        font-size: 1.5rem;
     }
 }
 

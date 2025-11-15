@@ -1231,6 +1231,12 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const formContato = document.getElementById('formContato');
     if (formContato) {
+        // Inicializar EmailJS (substitua 'YOUR_PUBLIC_KEY' pela sua chave pública do EmailJS)
+        // Para obter a chave: https://www.emailjs.com/docs/examples/reactjs/
+        if (typeof emailjs !== 'undefined') {
+            // emailjs.init('YOUR_PUBLIC_KEY'); // Descomente e adicione sua chave pública aqui
+        }
+        
         formContato.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -1251,24 +1257,83 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Gerar mensagem para WhatsApp
-            let msgContato = `📧 *Contato - Sorvetes Litorâneo*\n\n`;
-            msgContato += `*Nome:* ${nome}\n`;
-            msgContato += `*E-mail:* ${email}\n`;
-            if (telefone) {
-                msgContato += `*Telefone:* ${telefone}\n`;
+            // Desabilitar botão de envio durante o processo
+            const submitBtn = formContato.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            
+            // Tentar enviar por e-mail usando EmailJS
+            if (typeof emailjs !== 'undefined' && emailjs.send) {
+                // Configurações do EmailJS
+                // IMPORTANTE: Configure estas variáveis após criar conta no EmailJS
+                // Veja o arquivo INSTRUCOES_EMAILJS.md para instruções detalhadas
+                const SERVICE_ID = 'YOUR_SERVICE_ID'; // Substitua pelo seu Service ID
+                const TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Substitua pelo seu Template ID
+                const PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // Substitua pela sua Public Key
+                
+                // Verificar se as configurações foram feitas
+                if (SERVICE_ID === 'YOUR_SERVICE_ID' || TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+                    console.warn('⚠️ EmailJS não configurado. Usando WhatsApp como fallback.');
+                    alert('Sistema de e-mail ainda não configurado. Redirecionando para WhatsApp...');
+                    enviarViaWhatsApp(nome, email, telefone, mensagem);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    return;
+                }
+                
+                // Inicializar EmailJS
+                emailjs.init(PUBLIC_KEY);
+                
+                // Parâmetros do template de e-mail
+                const templateParams = {
+                    from_name: nome,
+                    from_email: email,
+                    phone: telefone || 'Não informado',
+                    message: mensagem,
+                    to_email: 'adm@sorveteslitoraneo.com.br'
+                };
+                
+                // Enviar e-mail
+                emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+                    .then(function(response) {
+                        console.log('✅ E-mail enviado com sucesso!', response.status, response.text);
+                        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+                        formContato.reset();
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }, function(error) {
+                        console.error('❌ Erro ao enviar e-mail:', error);
+                        // Fallback: enviar via WhatsApp se o e-mail falhar
+                        alert('Não foi possível enviar por e-mail. Redirecionando para WhatsApp...');
+                        enviarViaWhatsApp(nome, email, telefone, mensagem);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    });
+            } else {
+                // Se EmailJS não estiver disponível, usar WhatsApp como fallback
+                console.warn('EmailJS não está disponível. Usando WhatsApp como fallback.');
+                enviarViaWhatsApp(nome, email, telefone, mensagem);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
-            msgContato += `\n*Mensagem:*\n${mensagem}`;
-            
-            const urlWhatsApp = `https://wa.me/${PHONE_WHATSAPP}?text=${encodeURIComponent(msgContato)}`;
-            window.open(urlWhatsApp, '_blank', 'noopener,noreferrer');
-            
-            // Limpar formulário
-            formContato.reset();
-            alert('Redirecionando para o WhatsApp...');
         });
     }
 });
+
+// Função auxiliar para enviar via WhatsApp (fallback)
+function enviarViaWhatsApp(nome, email, telefone, mensagem) {
+    let msgContato = `📧 *Contato - Sorvetes Litorâneo*\n\n`;
+    msgContato += `*Nome:* ${nome}\n`;
+    msgContato += `*E-mail:* ${email}\n`;
+    if (telefone) {
+        msgContato += `*Telefone:* ${telefone}\n`;
+    }
+    msgContato += `\n*Mensagem:*\n${mensagem}`;
+    
+    const urlWhatsApp = `https://wa.me/${PHONE_WHATSAPP}?text=${encodeURIComponent(msgContato)}`;
+    window.open(urlWhatsApp, '_blank', 'noopener,noreferrer');
+}
 
 // ============================================
 // LAZY LOADING DE IMAGENS
