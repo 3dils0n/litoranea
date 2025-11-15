@@ -120,11 +120,14 @@ ul {
     justify-content: space-between;
     padding: var(--espaco-sm) 0;
     gap: var(--espaco-md);
+    position: relative;
+    z-index: 1;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    position: relative;
     z-index: 1001;
 }
 
@@ -137,6 +140,7 @@ ul {
 /* Navegação */
 .nav {
     position: relative;
+    z-index: 1;
 }
 
 .nav-toggle {
@@ -181,7 +185,7 @@ ul {
     box-shadow: 0 4px 10px var(--cor-sombra);
     transform: translateX(-100%);
     transition: transform 0.3s ease;
-    z-index: 1000;
+    z-index: 999;
 }
 
 .nav-menu.active {
@@ -1746,6 +1750,14 @@ section {
         display: flex;
         position: static;
         flex-direction: row;
+        transform: none;
+        top: auto;
+        left: auto;
+        right: auto;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        z-index: auto;
     }
     
     /* Esconder botão Admin do menu no desktop */
