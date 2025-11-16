@@ -472,6 +472,18 @@ async function salvarImagemNaPastaProjeto(file, nomeArquivo, extensao) {
 
 // Função para fazer upload da imagem para o servidor
 async function fazerUploadImagem(file, nomeArquivo, extensao) {
+    // Detectar hospedagem estática (não suporta PHP)
+    const isStaticHosting = window.location.hostname.includes('pages.dev') || 
+                           window.location.hostname.includes('github.io') ||
+                           window.location.hostname.includes('netlify.app') ||
+                           window.location.hostname.includes('vercel.app');
+    
+    // Se for hospedagem estática, não tentar fazer upload (será tratado no salvarProduto)
+    if (isStaticHosting) {
+        console.log('⚠️ Hospedagem estática detectada. Upload direto não disponível.');
+        return false;
+    }
+    
     // Verificar se está em um servidor HTTP (não file://)
     if (window.location.protocol === 'file:') {
         console.log('⚠️ Modo file:// detectado. Tentando salvar na pasta do projeto...');
@@ -1590,15 +1602,55 @@ async function salvarProduto(e) {
                         }
                     }
                 } else {
-                    // Em servidor HTTP mas upload falhou
-                    mostrarToast('⚠️ Upload falhou. Verifique se upload-imagem.php está no servidor.', 'error');
-                    const confirmar = confirm(
-                        `⚠️ Não foi possível fazer upload da imagem para o servidor.\n\n` +
-                        `O produto será salvo, mas a imagem não aparecerá no site até você fazer upload manual.\n\n` +
-                        `Deseja continuar?`
-                    );
-                    if (!confirmar) {
-                        return; // Cancelar salvamento do produto
+                    // Em servidor HTTP mas upload falhou (provavelmente hospedagem estática como Pages.dev)
+                    // Detectar se é hospedagem estática
+                    const isStaticHosting = window.location.hostname.includes('pages.dev') || 
+                                           window.location.hostname.includes('github.io') ||
+                                           window.location.hostname.includes('netlify.app') ||
+                                           window.location.hostname.includes('vercel.app');
+                    
+                    if (isStaticHosting) {
+                        // Hospedagem estática não suporta PHP - fazer download automático
+                        mostrarToast('📥 Fazendo download da imagem...', 'error');
+                        
+                        // Fazer download automático da imagem
+                        const blob = file instanceof Blob ? file : new Blob([file], { type: file.type || 'image/jpeg' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `${nomeArquivo}.${extensao}`;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        setTimeout(() => {
+                            document.body.removeChild(link);
+                            URL.revokeObjectURL(url);
+                        }, 100);
+                        
+                        const confirmar = confirm(
+                            `⚠️ Hospedagem estática detectada (não suporta upload direto).\n\n` +
+                            `📥 A imagem "${nomeArquivo}.${extensao}" foi baixada automaticamente.\n\n` +
+                            `📋 Próximos passos:\n` +
+                            `1. Salve a imagem na pasta: assets/sabores/\n` +
+                            `2. Faça commit e push no Git\n` +
+                            `3. A imagem aparecerá no site após o deploy\n\n` +
+                            `O produto será salvo agora. Deseja continuar?`
+                        );
+                        
+                        if (!confirmar) {
+                            return; // Cancelar salvamento do produto
+                        }
+                    } else {
+                        // Servidor HTTP normal mas upload falhou
+                        mostrarToast('⚠️ Upload falhou. Verifique se upload-imagem.php está no servidor.', 'error');
+                        const confirmar = confirm(
+                            `⚠️ Não foi possível fazer upload da imagem para o servidor.\n\n` +
+                            `O produto será salvo, mas a imagem não aparecerá no site até você fazer upload manual.\n\n` +
+                            `Deseja continuar?`
+                        );
+                        if (!confirmar) {
+                            return; // Cancelar salvamento do produto
+                        }
                     }
                 }
             }

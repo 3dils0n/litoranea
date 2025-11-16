@@ -132,7 +132,7 @@ ul {
 }
 
 .logo-img {
-    height: 120px;
+    height: 200px;
     width: auto;
     object-fit: contain;
 }
@@ -1689,8 +1689,8 @@ section {
 
 @media (max-width: 767px) {
     .logo-img {
-        height: 60px;
-        max-width: 150px;
+        height: 100px;
+        max-width: 200px;
         width: auto;
     }
     
