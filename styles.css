@@ -404,7 +404,7 @@ ul {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-top: 150px;
+    margin-top: 220px;
 }
 
 .hero-overlay {
@@ -477,7 +477,7 @@ ul {
     background: linear-gradient(135deg, var(--cor-marrom-escuro) 0%, var(--cor-marrom) 100%);
     color: var(--cor-branco);
     padding: var(--espaco-xl) var(--espaco-sm);
-    margin-top: 150px;
+    margin-top: 220px;
     text-align: center;
 }
 
